@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        self.prev = None
+        self.prev = float("-inf")
         
         def inorder(node):
             if not node:
@@ -14,10 +14,7 @@ class Solution:
             
             left = inorder(node.left)
             
-            if self.prev is None:
-                self.prev = node.val
-            
-            elif node.val <= self.prev:
+            if node.val <= self.prev:
                 return False
             
             self.prev = node.val

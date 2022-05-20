@@ -11,6 +11,8 @@ class Solution:
         if q.val < p.val:
             p, q = q, p
         
+        ############# RECURSIVE APPROACH #######################
+        """
         def lca(root, p, q):
             if not root:
                 return None
@@ -25,3 +27,19 @@ class Solution:
             return lca(root.left, p, q) or lca(root.right, p, q)
         
         return lca(root, p, q)
+        """
+        ################# ITERATIVE APPROACH ########################
+        
+        while root:
+            if p.val < root.val < q.val:
+                return root
+            
+            if root is p or root is q:
+                return root
+            
+            if root.val < p.val:
+                root = root.right
+            else:
+                root = root.left
+        
+        

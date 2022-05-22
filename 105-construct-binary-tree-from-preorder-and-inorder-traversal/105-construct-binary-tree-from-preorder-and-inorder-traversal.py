@@ -7,19 +7,19 @@
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         val_idx = {val : idx for idx, val in enumerate(inorder)}
-        preorder_idx = 0
-
-        def build_tree(left, right):
-            nonlocal preorder_idx
+        self.preorder_idx = 0
+        
+        def construct_tree(left, right):
             if left <= right:
-                val = preorder[preorder_idx]
-                preorder_idx += 1
+                val = preorder[self.preorder_idx]
+                self.preorder_idx += 1
                 idx = val_idx[val]
-
+                
                 root = TreeNode(val)
-
-                root.left = build_tree(left, idx - 1)
-                root.right = build_tree(idx + 1, right)
+                root.left = construct_tree(left, idx - 1)
+                root.right = construct_tree(idx + 1, right)
                 return root
-
-        return build_tree(0, len(inorder) - 1)
+        
+        return construct_tree(0, len(inorder) - 1)
+                
+                

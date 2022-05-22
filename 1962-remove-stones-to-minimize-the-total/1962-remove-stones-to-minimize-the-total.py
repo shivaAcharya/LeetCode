@@ -13,6 +13,7 @@ class Solution:
         heapq.heapify(piles)
         
         while k > 0:
+            if piles[0] == -1: break
             max_element = -heapq.heappop(piles)
             max_element = max_element - max_element // 2
             k -= 1

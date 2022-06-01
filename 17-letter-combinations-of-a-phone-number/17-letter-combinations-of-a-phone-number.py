@@ -20,4 +20,10 @@ class Solution:
         
         backtrack(0)
         return res
-                
+        """
+        234
+        
+        mnemonic = [a, e, g]
+        
+        
+        """

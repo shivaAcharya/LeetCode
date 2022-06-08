@@ -1,16 +1,14 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        str_n = str(n)
-        visited = set([n])
 
-        while str_n != "1":
+        visited = set()
+
+        while n != 1 and n not in visited:
+            visited.add(n)
             total = 0
-            for digit in str_n:
-                total += int(digit) ** 2
-            if total in visited:
-                return False
-            visited.add(total)
+            while n:
+                total += (n % 10) ** 2
+                n //= 10
+            n = total                    
 
-            str_n = str(total)
-
-        return True 
+        return n == 1

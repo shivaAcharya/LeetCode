@@ -7,11 +7,17 @@
 # space: O(n) ---> might need to scan the entire input array
 
 class Solution:
+    
+    def __init__(self):
+        self.lo = 0
+        
+        
     def suggestedProducts(self, products, searchWord):
         products.sort() # time O(nlogn)
         array_len = len(products)
         ans = []
         input_char = ""
+        
 
         for chr in searchWord:
             tmp = []
@@ -24,11 +30,11 @@ class Solution:
         return ans
 
     def binary_search(self, array, target): # bisect.bisect_left implementation
-        lo = 0
         hi = len(array)
-
+        lo = self.lo
         while lo < hi:
             mid = (lo + hi) //2
             if array[mid] < target: lo = mid + 1
             else: hi = mid
+        self.lo = lo
         return lo

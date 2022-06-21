@@ -27,12 +27,12 @@ class Solution:
         while Q:
             if not check_symmetric(Q):
                 return False
-            #Q = [child for node in Q if node for child in (node.left, node.right)]
-            tmp = []
-            for node in Q:
-                if node:
-                    tmp.append(node.left)
-                    tmp.append(node.right)
-            Q = tmp
+            Q = [child for node in Q if node for child in (node.left, node.right)]
+            # tmp = []
+            # for node in Q:
+            #     if node:
+            #         tmp.append(node.left)
+            #         tmp.append(node.right)
+            # Q = tmp
         return True
             

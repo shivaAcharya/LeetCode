@@ -10,16 +10,15 @@ class Solution:
         
         def postorder(node):
             if not node:
-                return [0]
+                return 0
             
             left = postorder(node.left)
             right = postorder(node.right)
             
             # Process node
-            total_sum = [node.val + left_sum + right_sum for left_sum in left for right_sum in right]
+            total_sum = left + right + node.val
             
-            for tot_sum in total_sum:
-                sum_freq[tot_sum] += 1
+            sum_freq[total_sum] += 1
             
             return total_sum
         

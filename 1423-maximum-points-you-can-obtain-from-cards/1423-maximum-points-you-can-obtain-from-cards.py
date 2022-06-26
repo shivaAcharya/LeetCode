@@ -7,10 +7,6 @@ class Solution:
         """
         L = len(cardPoints)
         win_size = L - k
-        
-        # If k == L
-        if win_size == 0:
-            return sum(cardPoints)
          
         min_sum = float("inf")
         
@@ -27,4 +23,10 @@ class Solution:
         
         return sum(cardPoints) - min_sum
         
+"""
+Time complexity: O(n). In the problem, we are iterating over the array of cards twice. So the time complexity will be O(2⋅n) = O(n).
+
+Space complexity: O(1) since no extra space is required.
+
+"""
         

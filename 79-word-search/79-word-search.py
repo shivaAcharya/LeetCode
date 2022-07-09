@@ -1,36 +1,32 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        """
-        1.  Iterate over all rows and cols and do dfs.
-        2.  DFS:
-        
-        
-        """
-        self.found = False
-        def dfs(row, col, idx):  
-            if self.found: return
-            
-            if idx == len(word):
-                self.found = True
-                return
-            
-            if row < 0 or row >= len(board) or col < 0 or col >= len(board[0]) or board[row][col] == '#' or board[row][col] != word[idx]:
-                return
-                 
-            # Store current letter on temp variable to restore 
-            tmp = board[row][col]
-            
-            # Mark current cell as visited
-            board[row][col] = '#'
-            
-            for r, c in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                dfs(row + r, col + c, idx + 1)
-            
-            board[row][col] = tmp
-            
-            
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                dfs(i, j, 0)
-                    
-        return self.found
+        # Input validating
+        if not word or not board:
+            return False
+
+        ROWS, COLS = len(board), len(board[0])
+
+        def dfs(r, c, ptr):
+            if ptr == len(word):
+                return True
+
+            if not 0 <= r < ROWS or not 0 <= c < COLS:
+                return False
+
+            if board[r][c] != word[ptr]:
+                return False
+
+            temp = board[r][c]
+            board[r][c] = ""
+            for row, col in [(r+1, c), (r-1, c), (r, c+1), (r, c-1)]:
+                if dfs(row, col, ptr+1):
+                    return True
+            board[r][c] = temp
+            return False
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if dfs(r, c, 0):
+                    return True
+
+        return False

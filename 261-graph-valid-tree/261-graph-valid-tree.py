@@ -1,5 +1,8 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        
+        if len(edges) != n - 1: return False
+        
         # Build Graph
         G = defaultdict(list)
         
@@ -9,17 +12,13 @@ class Solution:
         
         # Check cycle
         visited = set()
-        def has_cycle(node, parent):
+        def dfs(node):
             if node in visited:
-                return True
-            
+                return      
             visited.add(node)
             for nei in G[node]:
-                if nei != parent and has_cycle(nei, node):
-                    return True
-            return False
+                dfs(nei)
         
-        if has_cycle(0, -1):
-            return False
+        dfs(0)
                 
         return len(visited) == n

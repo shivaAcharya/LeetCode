@@ -2,9 +2,6 @@ class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         # Topological Sort
         
-        # Edge Case
-        if not prerequisites:
-            return [i for i in range(numCourses)]
         
         # Build Graph and indegrees
         G = defaultdict(list)

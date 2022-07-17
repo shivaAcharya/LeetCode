@@ -5,7 +5,7 @@ class Solution:
         
         # Build Graph and indegrees
         G = defaultdict(list)
-        indegrees = defaultdict(int)
+        indegrees = Counter()
         
         for u, v in prerequisites:
             G[v].append(u)

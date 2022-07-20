@@ -6,9 +6,9 @@ class Solution:
         self.components = n
         
         def find(x):
-            if x == self.root[x]:
-                return x
-            self.root[x] = find(self.root[x])
+            if x != self.root[x]:
+                #return x
+                self.root[x] = find(self.root[x])
             
             return self.root[x]
         
@@ -17,12 +17,12 @@ class Solution:
             
             if rootX != rootY:
                 if self.rank[rootX] > self.rank[rootY]:
-                    self.root[rootY] = rootX
-                elif self.rank[rootX] < self.rank[rootY]:
-                    self.root[rootX] = rootY                
+                    self.root[rootY] = rootX              
                 else:
                     self.root[rootY] = rootX
-                    self.rank[rootX] += 1
+                    if self.rank[rootX] == self.rank[rootY]:
+                        self.rank[rootX] += 1
+                        
                 self.components -= 1
         
         for u, v in edges:

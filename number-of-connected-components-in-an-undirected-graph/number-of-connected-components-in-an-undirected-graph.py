@@ -7,7 +7,6 @@ class Solution:
         
         def find(x):
             if x != self.root[x]:
-                #return x
                 self.root[x] = find(self.root[x])
             
             return self.root[x]
@@ -16,8 +15,8 @@ class Solution:
             rootX, rootY = find(x), find(y)
             
             if rootX != rootY:
-                if self.rank[rootX] > self.rank[rootY]:
-                    self.root[rootY] = rootX              
+                if self.rank[rootX] < self.rank[rootY]:
+                    self.root[rootX] = rootY              
                 else:
                     self.root[rootY] = rootX
                     if self.rank[rootX] == self.rank[rootY]:

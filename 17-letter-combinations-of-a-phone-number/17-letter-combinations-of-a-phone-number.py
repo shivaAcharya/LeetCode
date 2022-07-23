@@ -1,29 +1,31 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
+        
+        mapping = {"2" : "abc", "3" : "def", "4" : "ghi", "5" : "jkl", "6" : "mno", "7" : "pqrs", "8" : "tuv", "9" : "wxyz"}
+        
         res = []
-        # Handle edge case
+        mnemonics = []
+        
+        # Edge case
         if not digits:
-            return res        
+            return res
         
-        mnemonic = []
-        mapping = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
-        
-        def backtrack(idx):
-            if len(mnemonic) == len(digits):
-                res.append("".join(mnemonic))
+        def helper(i):
+            
+            if len(mnemonics) == len(digits):
+                res.append("".join(mnemonics))
                 return
             
-            for letter in mapping[digits[idx]]:
-                mnemonic.append(letter)
-                backtrack(idx+1)
-                mnemonic.pop()
+            digit = digits[i]
+            
+            for c in mapping[digit]:
+                mnemonics.append(c)
+                
+                helper(i+1)
+                
+                mnemonics.pop()
+            
+
+        helper(0)
         
-        backtrack(0)
         return res
-        """
-        234
-        
-        mnemonic = [a, e, g]
-        
-        
-        """

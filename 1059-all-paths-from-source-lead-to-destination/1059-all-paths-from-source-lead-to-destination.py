@@ -4,7 +4,6 @@ class Solution:
         # Create a graph
         G = defaultdict(list)
         for u, v in edges:
-
             G[u].append(v)                
         
         visited = set()

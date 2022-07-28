@@ -19,6 +19,9 @@ class Solution:
                     closest = abs(target - cur_sum)
                     closest_sum = cur_sum
                 
+                if not closest:
+                    return closest_sum
+                
                 # Move pointers
                 if target - cur_sum > 0:
                     l += 1

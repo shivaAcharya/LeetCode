@@ -1,15 +1,33 @@
 class Vector2D:
 
     def __init__(self, vec: List[List[int]]):
-        self.vec = [x for lst in vec for x in lst]
-        self.ptr = 0
+        self.vec = vec
+        self.x = self.y = 0
+        self.nxt = None
+        
+        for i, arr in enumerate(self.vec):
+            if arr:
+                self.nxt = arr[0]
+                self.x = i
+                break
+        print(self.vec, self.x, self.nxt)
 
     def next(self) -> int:
-        self.ptr += 1
-        return self.vec[self.ptr - 1]
+        if len(self.vec[self.x]) == self.y + 1:
+            self.y = 0
+            self.x += 1
+            while self.x < len(self.vec) and not self.vec[self.x]:
+                self.x += 1 
+        else:
+            self.y += 1
+        ret = self.nxt
+        
+        if self.hasNext():
+            self.nxt = self.vec[self.x][self.y]
+        return ret
 
     def hasNext(self) -> bool:
-        return self.ptr < len(self.vec)
+        return self.nxt != None and self.x < len(self.vec)
 
 
 # Your Vector2D object will be instantiated and called as such:

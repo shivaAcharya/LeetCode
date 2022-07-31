@@ -8,15 +8,11 @@ class Solution:
                     counter_words2[k] = v
 
         res = []
-        #print(counter_words2)
+
         for word in A:
             counter_word = Counter(word)
 
-            for k, v in counter_words2.items():
-                if k in counter_word and v <= counter_word[k]:
-                    continue
-                break
-            else:
+            if all(v <= counter_word[k] for (k, v) in counter_words2.items()):
                 res.append(word)
         
         return res

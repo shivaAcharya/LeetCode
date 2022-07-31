@@ -1,9 +1,9 @@
 class Solution:
-    def maximumGroups(self, g: List[int]) -> int:
-        n, m, ans, i = len(g), 0, 0, 1
-        while m<n:
-            m += i
-            i += 1
-            ans += 1      
-        return ans - 1 if m>n else ans
+    def maximumGroups(self, A: List[int]) -> int:
+        n = len(A)
+        k = 0
+        while n > k:
+            k += 1
+            n -= k
+        return k
                 

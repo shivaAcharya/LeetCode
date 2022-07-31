@@ -1,20 +1,24 @@
 class Solution:
     def wordSubsets(self, A: List[str], B: List[str]) -> List[str]:
-        def count(word):
-            ans = [0] * 26
-            for letter in word:
-                ans[ord(letter) - ord('a')] += 1
-            return ans
+        counter_words2 = defaultdict(int)
+        for word in B:
+            word_counter = Counter(word)
+            for k, v in word_counter.items():
+                if v > counter_words2[k]:
+                    counter_words2[k] = v
 
-        bmax = [0] * 26
-        for b in B:
-            for i, c in enumerate(count(b)):
-                bmax[i] = max(bmax[i], c)
+        res = []
+        #print(counter_words2)
+        for word in A:
+            counter_word = Counter(word)
 
-        ans = []
-        for a in A:
-            if all(x >= y for x, y in zip(count(a), bmax)):
-                ans.append(a)
-        return ans
-            
+            for k, v in counter_words2.items():
+                if k in counter_word and v <= counter_word[k]:
+                    continue
+                break
+            else:
+                res.append(word)
+        
+        return res
+
             

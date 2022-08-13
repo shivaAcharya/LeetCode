@@ -1,27 +1,27 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         
+        # Build Graph
         G = defaultdict(list)
         
         for u, v in edges:
             G[u].append(v)
             G[v].append(u)
-        
+            
+        # Use BFS
+        Q = deque([source])
         visited = set()
         
-        def dfs(s):
-            if s == destination:
+        while Q:
+            node = Q.popleft()
+            
+            if node == destination:
                 return True
             
-            if s in visited:
-                return False
+            visited.add(node)
             
-            visited.add(s)
-            
-            for nei in G[s]:
-                if dfs(nei):
-                    return True
-                
-            return False
+            for child in G[node]:
+                if child not in visited:
+                    Q.append(child)
         
-        return dfs(source)
+        return False

@@ -3,21 +3,21 @@ class Solution:
         
         res = []
         
-        path = []
+        #path = []
         
-        def dfs(s):
+        def dfs(s, path):
             path.append(s)
                         
             if s == len(graph) - 1:
-                res.append(path[:] )
+                res.append(path[:])
                 return
         
             
             for nei in graph[s]:
-                dfs(nei)
+                dfs(nei, path)
                 path.pop()     
         
         
-        dfs(0)
+        dfs(0, [])
         
         return res

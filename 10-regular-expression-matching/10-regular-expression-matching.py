@@ -11,17 +11,26 @@ class Solution:
             (2) if pattern with char preceding * and text matches, then check match in top row i.e. row - 1
         
         '''
-        # https://leetcode.com/problems/regular-expression-matching/solution/     
+                
         
-        dp = [[False] * (len(pattern) + 1) for _ in range(len(text) + 1)]
-
-        dp[-1][-1] = True
-        for i in range(len(text), -1, -1):
-            for j in range(len(pattern) - 1, -1, -1):
-                first_match = i < len(text) and pattern[j] in {text[i], '.'}
-                if j+1 < len(pattern) and pattern[j+1] == '*':
-                    dp[i][j] = dp[i][j+2] or first_match and dp[i+1][j]
-                else:
-                    dp[i][j] = first_match and dp[i+1][j+1]
-
-        return dp[0][0]
+        dp = [[False for _ in range(len(pattern) + 1)] for _ in range(len(text) + 1)]
+        
+        dp[0][0] = True
+        
+        # Populate first dp row
+        for col in range(2, len(pattern) + 1):
+            if pattern[col - 1] == "*":
+                dp[0][col] = dp[0][col - 2]
+                
+        # Populate dp table      
+        for row in range(1, len(text) + 1):
+            for col in range(1, len(pattern) + 1):
+                if pattern[col - 1] == text[row - 1] or pattern[col-1] == ".":
+                    dp[row][col] = dp[row - 1][col-1]
+                elif pattern[col-1] == '*':
+                    dp[row][col] = dp[row][col-2]
+                    if pattern[col-2] == text[row-1] or pattern[col-2] == '.':
+                        dp[row][col] = dp[row][col] or dp[row-1][col]
+                    
+        
+        return dp[len(text)][len(pattern)]

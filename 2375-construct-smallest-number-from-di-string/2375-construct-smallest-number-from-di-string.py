@@ -4,7 +4,11 @@ class Solution:
         res = []
 
         def backtrack(nums, i):
+            if res:
+                return
+                    
             if len(tmp) == len(pattern) + 1:
+                
                 res.append("".join([str(i) for i in tmp]))
                 return
 
@@ -29,7 +33,9 @@ class Solution:
 
         for num in nums:
             tmp = [num]
+            if res:
+                break
             backtrack(nums, 0)
 
-        return min(res)
+        return res[0]
     

@@ -1,23 +1,21 @@
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         
+        destination = len(graph) - 1
+        Q = deque([[0]])
         res = []
-        
-        #path = []
-        
-        def dfs(s, path):
-            path.append(s)
-                        
-            if s == len(graph) - 1:
-                res.append(path[:])
-                return
-        
+                
+        while Q:
+            path = Q.popleft()
+            node = path[-1]
             
-            for nei in graph[s]:
-                dfs(nei, path)
-                path.pop()     
-        
-        
-        dfs(0, [])
+            if node == destination:
+                res.append(path)
+                continue
+            
+            for nei in graph[node]:
+                Q.append(path + [nei])
         
         return res
+                
+                

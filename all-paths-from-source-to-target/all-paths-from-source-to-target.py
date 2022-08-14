@@ -11,7 +11,7 @@ class Solution:
             
             if node == destination:
                 res.append(path)
-                continue
+                #continue
             
             for nei in graph[node]:
                 Q.append(path + [nei])

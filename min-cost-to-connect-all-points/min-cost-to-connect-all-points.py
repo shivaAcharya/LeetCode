@@ -1,65 +1,26 @@
-class UnionFind:
-    
-    def __init__(self, size):
-        self.root = [i for i in range(size)]
-        self.rank = [1 for _ in range(size)]
-        
-    
-    def find(self, x):
-        if x != self.root[x]:
-            self.root[x] = self.find(self.root[x])
-        
-        return self.root[x]
-    
-    
-    def union(self, x, y):
-        rootX, rootY = self.find(x), self.find(y)
-        
-        if rootX != rootY:
-            #rankX, rankY = self.rank[rootX], self.rank[rootY]
-            
-            if self.rank[rootX] > self.rank[rootY]:
-                self.root[rootY] = rootX
-            
-            elif self.rank[rootX] > self.rank[rootY]:
-                self.root[rootX] = rootY
-                
-            else:
-                self.root[rootX] = rootY
-                self.rank[rootY] += 1
-            
-            return True
-        
-        return False
-        
-        
-
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        # Kruskal's Algorithm
-        edges = []        
-        N = len(points)
-        for i in range(N - 1):
-            for j in range(i + 1, N):
-                xi, yi, xj, yj = points[i][0], points[i][1], points[j][0], points[j][1]
-                
-                man_distance = abs(xi - xj) + abs(yi - yj)
-                edges.append((man_distance, i, j))
-        #print(edges)
-        edges.sort()
-        
-        uf = UnionFind(N)
+        # Prim's Algorithm
+        n = len(points)
+        min_cost = 0
         edges_used = 0
-        cost = 0
+        in_MST = [False] * n
+        heap = [(0, 0)]        
         
-        #print(edges)
-        for edge, u, v in edges:
-            if uf.union(u, v):
+        
+        while edges_used < n:
+            cost, node = heapq.heappop(heap)
+            
+            if not in_MST[node]:
+                in_MST[node] = True
                 edges_used += 1
-                cost += edge
-                if edges_used == N - 1:
-                    break
-                    
-        return cost
+                min_cost += cost
                 
+                for next_node in range(n):
+                    #if not in_MST[vertex]:
+                    if not in_MST[next_node]:
+                        next_cost = abs(points[node][0] - points[next_node][0]) +\
+                                  abs(points[node][1] - points[next_node][1])
+                        heapq.heappush(heap, (next_cost, next_node))
         
+        return min_cost

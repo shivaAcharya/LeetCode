@@ -2,14 +2,11 @@ class Solution:
     def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
         
         ROWS, COLS = len(mat), len(mat[0])
-        visited = set()
         
         for r in range(ROWS):
             for c in range(COLS):
-                if (r, c) in visited:
+                if r > 0 and c == 1:
                     break
-                    
-                visited.add((r, c))
                 
                 cur_elements = []
                 

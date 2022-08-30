@@ -10,7 +10,7 @@ class Solution:
         while Q:
             row, col = Q.popleft()
             
-            for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            for x, y in (1, 0), (-1, 0), (0, 1), (0, -1):
                 r, c = row + x, col + y
                 count = 0
                 while 0 <= r < ROWS and 0 <= c < COLS and maze[r][c] == 0:

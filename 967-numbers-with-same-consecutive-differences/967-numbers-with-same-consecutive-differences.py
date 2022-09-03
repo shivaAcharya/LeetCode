@@ -8,7 +8,7 @@ class Solution:
                 res.append(int("".join(tmp)))
                 return
             
-            for nei in range(0, 10):
+            for nei in range(10):
                 if not tmp and nei == 0:
                     continue
                 

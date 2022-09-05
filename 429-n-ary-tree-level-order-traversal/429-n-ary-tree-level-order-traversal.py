@@ -8,46 +8,16 @@ class Node:
 
 class Solution:
     def levelOrder(self, root: 'Node') -> List[List[int]]:
-        ############################## DFS ########################
-        '''   
         res = []
-        def inOrder(node, level):
-            if node:
-                if level > len(res):
-                    res.append([])
-
-                for child in node.children:
-
-                    inOrder(child, level + 1)
-
-                res[level - 1].append(node.val)
-
-        
-        inOrder(root, 1)
-        
-        return res
-        '''
-        ########################## BFS ###########################
-        
-        res = []
-        
         if not root:
             return res
         
-        Q = deque([(root, 0)])
+        Q = [root]
         
         while Q:
-            
-            node, level = Q.popleft()
-            
-            if level + 1 > len(res):
-                res.append([])
-            
-            res[level].append(node.val)
-            
-            for child in node.children:
-                Q.append((child, level + 1))
+                       
+            res.append([node.val for node in Q])
+            Q = [child for node in Q for child in node.children if child]
         
         return res
-        
-    
+            

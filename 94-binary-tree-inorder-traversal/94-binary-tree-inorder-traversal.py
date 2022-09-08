@@ -9,6 +9,8 @@ class Solution:
         
         stack, res = [], []
         
+        if not root: return res
+        
         while root or stack:
             while root:
                 stack.append(root)
@@ -19,3 +21,4 @@ class Solution:
             root = root.right
         
         return res
+            

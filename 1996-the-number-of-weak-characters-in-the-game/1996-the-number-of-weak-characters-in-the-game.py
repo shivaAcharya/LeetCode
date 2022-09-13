@@ -1,3 +1,6 @@
+'''
+https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/solution/
+'''
 class Solution:
     def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
         # Sort in ascending order of attack

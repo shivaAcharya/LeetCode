@@ -11,9 +11,8 @@ class Solution:
             if ord(s[r]) - ord(s[r-1]) != 1:
                 l = r
             
-            cur_window = r - l + 1
             
-            res = max(res, cur_window)
+            res = max(res, r - l + 1)
                 
         
         return res

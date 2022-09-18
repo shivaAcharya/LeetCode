@@ -42,4 +42,4 @@ class Solution:
         for word in words:
             trie.insert(word)
         
-        return map(trie.count, words)
+        return [trie.count(word) for word in words]

@@ -14,15 +14,10 @@ class Solution:
 #         return " ".join(s)
         
         res = []
-        tmp = []
-        
-        for c in s:
+        left = 0
+        for i, c in enumerate(s):
             if c == " ":
-                res.append("".join(reversed(tmp)))
-                tmp = []
-            else:
-                tmp.append(c)
-                
-        res.append("".join(reversed(tmp)))
-        
+                res.append(s[left:i][::-1])
+                left = i + 1
+        res.append(s[left:][::-1])
         return " ".join(res)

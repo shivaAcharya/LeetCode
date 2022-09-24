@@ -15,19 +15,18 @@ class Solution:
             
             if node:
                 
-                # If leaf node
-                if not node.left and not node.right and cur_sum == targetSum:
-                    res.append(path.copy())
-                    return
+                path.append(node.val)
                 
-                for nei in (node.left, node.right):
-                    if nei:
-                        path.append(nei.val)
-                        cur_sum += nei.val
-                        dfs(nei, cur_sum, path)
-                        cur_sum -= nei.val
-                        path.pop()
+                # If leaf node
+                if not node.left and not node.right and node.val == cur_sum:
+                    res.append(path.copy())
+                else:
+                
+                    dfs(node.left, cur_sum - node.val, path)
+                    dfs(node.right, cur_sum - node.val, path)
+
+                path.pop()
+                
         
-        
-        dfs(root, root.val, [root.val])
+        dfs(root, targetSum, [])
         return res

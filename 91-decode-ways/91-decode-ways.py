@@ -1,9 +1,11 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
         
+        memo = {}
         
-        @cache
         def dfs(i):
+            if i in memo:
+                return memo[i]
             
             if i == len(s):
                 return 1
@@ -14,12 +16,12 @@ class Solution:
             if i == len(s) - 1:
                 return 1
             
-            res = dfs(i+1)
+            memo[i] = dfs(i+1)
             
             if int(s[i : i + 2]) <= 26:
-                res += dfs(i + 2)
+                memo[i] += dfs(i + 2)
             
-            return res
+            return memo[i]
         
         return dfs(0)
 

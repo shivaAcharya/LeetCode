@@ -1,29 +1,26 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
         
-        memo = {}
+        if len(s) == 1 and s[0] != '0':
+            return 1
         
-        def dfs(i):
-            if i in memo:
-                return memo[i]
-            
-            if i == len(s):
-                return 1
-            
-            if s[i] == "0":
-                return 0
-            
-            if i == len(s) - 1:
-                return 1
-            
-            memo[i] = dfs(i+1)
-            
-            if int(s[i : i + 2]) <= 26:
-                memo[i] += dfs(i + 2)
-            
-            return memo[i]
+        dp = [0] * (len(s) + 1)
+        dp[-1] = 1
         
-        return dfs(0)
+        for i in range(len(s) - 1, -1, -1):
+            if s[i] == '0':
+                dp[i] = 0
+            elif s[i] == '1' and i + 1 < len(s):
+                dp[i] = dp[i+1] + dp[i+2]
+            elif s[i] == '2':
+                dp[i] = dp[i+1]
+                
+                if i + 1 < len(s) and s[i+1] <= '6':
+                    dp[i] += dp[i+2]
+            else:
+                dp[i] = dp[i+1]
+        
+        return dp[0]
 
     
 """

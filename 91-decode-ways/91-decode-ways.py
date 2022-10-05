@@ -1,9 +1,6 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
         
-        if len(s) == 1 and s[0] != '0':
-            return 1
-        
         dp = [0] * (len(s) + 1)
         dp[-1] = 1
         
@@ -12,6 +9,7 @@ class Solution:
                 dp[i] = 0
             elif s[i] == '1' and i + 1 < len(s):
                 dp[i] = dp[i+1] + dp[i+2]
+                
             elif s[i] == '2':
                 dp[i] = dp[i+1]
                 

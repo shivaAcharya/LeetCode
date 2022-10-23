@@ -8,21 +8,22 @@ class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         
         self.res = 0
-        self.path = [str(root.val)]
+        self.path = []
         
         def backtrack(node):
             #print(self.path)
+            if not node:
+                return
+            
+            self.path.append(str(node.val))
+            
             # Check if node is a leaf node
             if not node.left and not node.right:
-                #self.path.append(str(node.val))
                 self.res += int("".join(self.path))
-                return
 
             for child in (node.left, node.right):
-                if child:
-                    self.path.append(str(child.val))
-                    backtrack(child)
-                    self.path.pop()
+                backtrack(child)
+            self.path.pop()
         
         backtrack(root)
         return self.res

@@ -3,7 +3,13 @@ class Solution:
         
         groups = defaultdict(list)
         
-        for str in strs:
-            groups["".join(sorted(str))].append(str)
+        for s in strs:
+            count = [0] * 26
+            
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            
+            groups[tuple(count)].append(s)
+            
         
         return groups.values()

@@ -6,4 +6,4 @@ class Solution:
         for str in strs:
             groups["".join(sorted(str))].append(str)
         
-        return list(groups.values())
+        return groups.values()

@@ -6,13 +6,12 @@ class Solution:
         l, r = 0, len(s) - 1
         
         while l < r:
-            if s[l] not in VOWELS:
+            while l < r and s[l] not in VOWELS:
                 l += 1
-            if s[r] not in VOWELS:
+            while l < r and s[r] not in VOWELS:
                 r -= 1
-            if s[l] in VOWELS and s[r] in VOWELS:
-                s_list[l], s_list[r] = s[r], s[l]
-                l += 1
-                r -= 1
+            s_list[l], s_list[r] = s[r], s[l]
+            l += 1
+            r -= 1
         
         return "".join(s_list)

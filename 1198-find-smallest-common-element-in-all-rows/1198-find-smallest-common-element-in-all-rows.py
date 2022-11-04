@@ -8,8 +8,8 @@ class Solution:
         ROWS, COLS = len(mat), len(mat[0])
         frequency = {}
         
-        for r in range(ROWS):
-            for c in range(COLS):
+        for c in range(COLS):
+            for r in range(ROWS):
                 num = mat[r][c]
                 frequency[num] = frequency.get(num, 0) + 1
                 if frequency[num] == ROWS:

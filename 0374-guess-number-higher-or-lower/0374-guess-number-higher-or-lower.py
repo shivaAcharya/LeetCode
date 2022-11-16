@@ -11,20 +11,17 @@ class Solution:
             return n
         
         lo, hi = 1, n
-        num1, num2 = (lo + hi) // 2, (lo + hi + 1) // 2
+        num = (lo + hi) // 2
         
         while True:
-            pick1, pick2 = guess(num1), guess(num2)
+            pick = guess(num)
             
-            if pick1 == 0:
-                return num1
+            if pick == 0:
+                return num
             
-            if pick2 == 0:
-                return num2
+            if pick > 0:
+                lo = num + 1
+            elif pick < 0:
+                hi = num - 1
             
-            if pick1 > 0:
-                lo = num1
-            elif pick1 < 0:
-                hi = num1
-            
-            num1, num2 = (lo + hi) // 2, (lo + hi + 1) // 2
+            num = (lo + hi) // 2

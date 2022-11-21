@@ -9,8 +9,6 @@ class Solution:
         while Q:
             row, col, steps = Q.popleft()
             
-            maze[row][col] = '+'
-            
             for r, c in (row + 1, col), (row - 1, col), (row, col + 1), (row, col - 1):
                 if 0 <= r < ROWS and 0 <= c < COLS and maze[r][c] == ".":
 

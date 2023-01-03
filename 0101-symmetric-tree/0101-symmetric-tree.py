@@ -7,12 +7,25 @@
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         
-        def check_symmetric(root1, root2):
-            
-            if not root1 and not root2: return True
-            if not root1 or not root2: return False
-            if root1.val != root2.val: return False
-            
-            return check_symmetric(root1.left, root2.right) and check_symmetric(root1.right, root2.left)
+        nodes = [root]
         
-        return not root or check_symmetric(root.left, root.right)
+        while nodes:
+            # Check symmetricity and traverse children
+            l, r = 0, len(nodes) - 1
+            children = []            
+            while l < r:
+                if not nodes[l] and not nodes[r]: pass
+                elif not nodes[l] or not nodes[r]: return False
+                elif nodes[l].val != nodes[r].val: return False
+                l += 1
+                r -= 1
+            
+            # Populate nodes with children
+            for node in nodes:
+                if node:
+                    children.append(node.left)
+                    children.append(node.right)
+            nodes = children
+        
+        return True
+        

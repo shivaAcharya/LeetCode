@@ -6,9 +6,7 @@ class Solution:
             last_char = ""
             for j in range(len(strs)):
                 char = strs[j][i]
-                if not last_char:
-                    last_char = char
-                elif last_char > char:
+                if last_char and last_char > char:
                     columns += 1
                     break
                 last_char = char

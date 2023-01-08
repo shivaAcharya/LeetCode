@@ -2,7 +2,7 @@ class Solution:
     def minimumHealth(self, damage: List[int], armor: int) -> int:
         
                 
-        health = 0
+        health = 1
         armor_damage = 0
         
         for dam in damage:
@@ -10,7 +10,7 @@ class Solution:
             armor_damage = max(armor_damage, dam)            
             health += dam
         
-        return health - min(armor, armor_damage) + 1 
+        return health - min(armor, armor_damage) 
         
         '''
         [2, 7, 4, 3]

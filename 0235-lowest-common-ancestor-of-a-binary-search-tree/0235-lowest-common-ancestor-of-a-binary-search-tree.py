@@ -14,7 +14,8 @@ class Solution:
         
         if root is p or root is q: return root
         
-        left = self.lowestCommonAncestor(root.left, p, q)
-        right = self.lowestCommonAncestor(root.right, p, q)
+        if root.val > max(p.val, q.val):
+            return self.lowestCommonAncestor(root.left, p, q)
+        else:
+            return self.lowestCommonAncestor(root.right, p, q)
         
-        return left or right

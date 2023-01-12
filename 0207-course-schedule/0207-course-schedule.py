@@ -1,9 +1,7 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # Base case
-        if not prerequisites: return True
-        
-        indegrees = defaultdict(int)
+        indegrees = [0] * numCourses
+
         G = defaultdict(list)
 
         for u, v in prerequisites:
@@ -12,21 +10,20 @@ class Solution:
         
         Q = deque()
 
-        # Initialize Q
-        for course in range(numCourses):
-            if course not in indegrees:
+        for course, indegree in enumerate(indegrees):
+            if indegree == 0:
                 Q.append(course)
         
         # BFS
+        course_taken = 0
         while Q:
-            course = Q.popleft()
-            # Take the course
-            numCourses -= 1
 
-            # Explore neighbors
+            course = Q.popleft()
+            course_taken += 1
+
             for next_course in G[course]:
                 indegrees[next_course] -= 1
                 if indegrees[next_course] == 0:
                     Q.append(next_course)
         
-        return numCourses == 0
+        return course_taken == len(G)

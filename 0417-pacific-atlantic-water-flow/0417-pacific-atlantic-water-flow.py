@@ -1,48 +1,61 @@
+'''
+1. Initialize P_Q, A_Q, P_Set, and A_Set.
+2. Populate P_Q, A_Q, P_Set, and A_Set with firt row, first col, last row, and last col elem
+3. Perform BFS from P_Q and A_Q.
+4. Return the intersection of P_Set and A_Set
+'''
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        P_Q, A_Q, P_S, A_S = deque(), deque(), set(), set()
-        ROWS, COLS = len(heights), len(heights[0])
 
-        # Populate P_Q and P_S
+        ROWS, COLS = len(heights), len(heights[0])
+        P_Q, A_Q, P_Set, A_Set = deque(), deque(), set(), set()
+
+        # Populate P_Q and P_Set
         for c in range(COLS):
             P_Q.append((0, c))
-            P_S.add((0, c))
+            P_Set.add((0, c))
 
         for r in range(ROWS):
             P_Q.append((r, 0))
-            P_S.add((r, 0))
+            P_Set.add((r, 0))
         
-        # Populate A_Q and A_S
+        # Populate A_Q and A_Set
         for c in range(COLS):
             A_Q.append((ROWS - 1, c))
-            A_S.add((ROWS - 1, c))
+            A_Set.add((ROWS - 1, c))
         
         for r in range(ROWS):
             A_Q.append((r, COLS - 1))
-            A_S.add((r, COLS - 1))
+            A_Set.add((r, COLS - 1))
 
-        # BFS on P_Q
+        # BFS for P_Q
         while P_Q:
             r, c = P_Q.popleft()
 
-            for row, col in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
-                if 0 <= row < ROWS and 0 <= col < COLS and (row, col) not in P_S and heights[row][col] >= heights[r][c]:
-                    P_S.add((row, col))
-                    P_Q.append((row, col))
-
-        # BFS on A_Q
+            for nr, nc in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
+                if 0 <= nr < ROWS and 0 <= nc < COLS and (nr, nc) not in P_Set and \
+                heights[r][c] <= heights[nr][nc]:
+                    P_Q.append((nr, nc))
+                    P_Set.add((nr, nc))
+            
+        # BFS for A_Q
         while A_Q:
             r, c = A_Q.popleft()
 
-            for row, col in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
-                if 0 <= row < ROWS and 0 <= col < COLS and (row, col) not in A_S and heights[row][col] >= heights[r][c]:
-                    A_S.add((row, col))
-                    A_Q.append((row, col))
+            for nr, nc in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
+                if 0 <= nr < ROWS and 0 <= nc < COLS and (nr, nc) not in A_Set and \
+                heights[r][c] <= heights[nr][nc]:
+                    A_Q.append((nr, nc))
+                    A_Set.add((nr, nc))
         
-        # Calculate result
         res = []
-        for r, c in P_S:
-            if (r, c) in A_S:
+        for (r, c) in P_Set:
+            if (r, c) in A_Set:
                 res.append([r, c])
         
-        return res 
+        return res
+
+"""
+Time => O(MN)
+Space => O(MN)
+"""

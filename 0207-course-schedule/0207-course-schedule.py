@@ -1,29 +1,24 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegrees = [0] * numCourses
+        indegree = [0] * numCourses
+        G = defaultdict(set)
 
-        G = defaultdict(list)
-
-        for u, v in prerequisites:
-            G[v].append(u)
-            indegrees[u] += 1
+        for a, b in prerequisites:
+            G[b].add(a)
+            indegree[a] += 1
         
-        Q = deque()
-
-        for course, indegree in enumerate(indegrees):
-            if indegree == 0:
-                Q.append(course)
+        Q = deque([course for course, indegree in enumerate(indegree) if indegree == 0])
+        visited = set()
         
-        # BFS
-        course_taken = 0
+        #print(indegree, G)
         while Q:
-
             course = Q.popleft()
-            course_taken += 1
+            visited.add(course)
 
-            for next_course in G[course]:
-                indegrees[next_course] -= 1
-                if indegrees[next_course] == 0:
-                    Q.append(next_course)
+            for nxt_course in G[course]:
+                if nxt_course not in visited:
+                    indegree[nxt_course] -= 1
+                    if indegree[nxt_course] == 0:
+                        Q.append(nxt_course)
         
-        return course_taken == len(G)
+        return len(visited) == numCourses

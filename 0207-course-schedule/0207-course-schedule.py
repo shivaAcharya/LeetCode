@@ -8,17 +8,16 @@ class Solution:
             indegree[a] += 1
         
         Q = deque([course for course, indegree in enumerate(indegree) if indegree == 0])
-        visited = set()
         
         #print(indegree, G)
+        courses_taken = 0
         while Q:
             course = Q.popleft()
-            visited.add(course)
+            courses_taken += 1
 
             for nxt_course in G[course]:
-                if nxt_course not in visited:
-                    indegree[nxt_course] -= 1
-                    if indegree[nxt_course] == 0:
-                        Q.append(nxt_course)
+                indegree[nxt_course] -= 1
+                if indegree[nxt_course] == 0:
+                    Q.append(nxt_course)
         
-        return len(visited) == numCourses
+        return courses_taken == numCourses

@@ -1,9 +1,21 @@
+'''
+Topological Sort
+
+1. Intialize an empty defaultdict G, and indegrees with all letters mapped to 0.
+2. Build G and maintain indegrees using two consecutive words from words list.
+3. Initialize Q with letters with 0 indegree
+4. Perform BFS building res list.
+5. Return res if len(res) == len(indegrees), otherwise ""
+
+'''
+
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        G = defaultdict(set)
-        indegrees = Counter({c : 0 for word in words for c in word})
 
-        # Build G
+        indegrees = Counter({c : 0 for word in words for c in word})
+        G = defaultdict(set)
+
+        # Build G and maintain indegrees
         for i in range(len(words) - 1):
             word1, word2 = words[i], words[i + 1]
             for c1, c2 in zip(word1, word2):
@@ -16,17 +28,24 @@ class Solution:
                 if len(word2) < len(word1):
                     return ""
         
-        Q = deque([k for k, v in indegrees.items() if v == 0])
-        
-        new_word = []
+        # Initialize Q
+        Q = deque([c for c, indegree in indegrees.items() if indegree == 0])
+
+        res = []
+        #print(indegrees, G)
         while Q:
             c = Q.popleft()
-            new_word.append(c)
+            res.append(c)
 
-            for nei in G[c]:
-                indegrees[nei] -= 1
-                if indegrees[nei] == 0:
-                    Q.append(nei)
-            
+            for nc in G[c]:
+                indegrees[nc] -= 1
+                if indegrees[nc] == 0:
+                    Q.append(nc)
         
-        return "".join(new_word) if len(new_word) == len(indegrees) else ""
+        return "".join(res) if len(res) == len(indegrees) else ""
+    
+"""
+Time => O(V + E)
+Space => O(V + E)
+"""
+            

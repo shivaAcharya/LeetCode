@@ -11,12 +11,11 @@ class Solution:
         
         def dfs(node):
             if not node: return 0
+            
             left = dfs(node.left)
             right = dfs(node.right)
             
-            # Include root
             self.diameter = max(self.diameter, left + right)
-            
             return 1 + max(left, right)
         
         dfs(root)

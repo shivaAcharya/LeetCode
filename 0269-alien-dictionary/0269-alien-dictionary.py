@@ -1,11 +1,19 @@
 '''
-Topological Sort
+indegrees = {w:0, r:0, f:0, e:0, t:0}
 
-1. Intialize an empty defaultdict G, and indegrees with all letters mapped to 0.
-2. Build G and maintain indegrees using two consecutive words from words list.
-3. Initialize Q with letters with 0 indegree
-4. Perform BFS building res list.
-5. Return res if len(res) == len(indegrees), otherwise ""
+Build graph
+
+G = {
+    t : {f},
+    w : {e},
+    r : {t},
+    e : {r}
+}
+
+res = [w, e, r, t, f]
+Q = []
+
+return "".join(res) if len(res) == len(indegrees) else ""
 
 '''
 
@@ -15,9 +23,9 @@ class Solution:
         indegrees = Counter({c : 0 for word in words for c in word})
         G = defaultdict(set)
 
-        # Build G and maintain indegrees
         for i in range(len(words) - 1):
-            word1, word2 = words[i], words[i + 1]
+            word1, word2 = words[i], words[i+1]
+
             for c1, c2 in zip(word1, word2):
                 if c1 != c2:
                     if c2 not in G[c1]:
@@ -28,24 +36,19 @@ class Solution:
                 if len(word2) < len(word1):
                     return ""
         
-        # Initialize Q
-        Q = deque([c for c, indegree in indegrees.items() if indegree == 0])
-
+        Q = deque([c for c, v in indegrees.items() if v == 0])
         res = []
-        #print(indegrees, G)
         while Q:
-            c = Q.popleft()
-            res.append(c)
+            letter = Q.popleft()
+            res.append(letter)
 
-            for nc in G[c]:
-                indegrees[nc] -= 1
-                if indegrees[nc] == 0:
-                    Q.append(nc)
+            for new_letter in G[letter]:
+                indegrees[new_letter] -= 1
+                if indegrees[new_letter] == 0:
+                    Q.append(new_letter)
         
         return "".join(res) if len(res) == len(indegrees) else ""
-    
 """
-Time => O(V + E)
-Space => O(V + E)
+Time => O(E + V)   E is dependencies, V is total unique letters
+Space => O(E + V)
 """
-            

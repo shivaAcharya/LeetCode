@@ -12,16 +12,13 @@
 '''
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1: return nums[0]
+        prev, last = nums[0], max(nums[0], nums[1])
         
-        dp = [0] * (len(nums) + 1)
-        dp[1] = nums[0]
-                 # 1  2  3  1 
-        # dp = [0, 1, 2, 4, 0]
+        for i in range(2, len(nums)):
+            prev, last = last, max(nums[i] + prev, last)
         
-        for i in range(2, len(nums) + 1):
-            dp[i] = max(nums[i - 1] + dp[i - 2], dp[i - 1])
-        
-        return dp[-1]
+        return last
         
 #         memo = {}
 #         def dp(i):

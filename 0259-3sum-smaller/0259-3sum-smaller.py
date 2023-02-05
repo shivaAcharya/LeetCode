@@ -12,6 +12,12 @@ class Solution:
                 cur_sum = nums[i] + nums[l] + nums[r]
                 
                 if cur_sum < target:
+                    # IMPORTANT
+                    # TRICKY PART HERE
+                    # IF THREESUM < TARGET, THEN BECAUSE THEE ARRAY IS SORTED
+                    # ALL NUMBERS IN BETWEEN WILL ALSO BE LESS OR EQUAL TO K
+                    # AND THEREFORE BE VALID ANSWERS
+                    
                     count += r - l
                     l += 1
                 else:

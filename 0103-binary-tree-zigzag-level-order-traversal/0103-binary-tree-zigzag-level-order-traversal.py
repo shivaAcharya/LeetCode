@@ -8,19 +8,18 @@ class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         ########### NAIVE APPROACH ##############
         res = []
-        left = True
+        level = 0
         if not root: return res
         
         Q = [root]
         
         while Q:
-            if not left:
+            if level % 2:
                 res.append([node.val for node in reversed(Q)])
-                left = True
             else:
                 res.append([node.val for node in Q])
-                left = False
             children = [child for node in Q for child in (node.left, node.right) if child]
             Q = children
+            level += 1
         
         return res

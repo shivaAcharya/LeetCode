@@ -3,14 +3,11 @@ class Solution:
         n = len(needle)
         
         for i in range(len(haystack) - n + 1):
-            if haystack[i] == needle[0]:
-                # Two Pointer
-                l = i
-                for c in needle:
-                    if haystack[l] != c:
-                        break
-                    l += 1
-                else:
-                    return i
+            # Two Pointer
+            for j, c in enumerate(needle):
+                if haystack[i+j] != c:
+                    break
+            else:
+                return i
         
         return -1

@@ -5,6 +5,6 @@ class Solution:
         res = [''] * len(s)
         
         for word in s:
-            res[int(word[-1]) - 1] = word[:len(word) - 1]
+            res[int(word[-1]) - 1] = word[:-1]
         
         return " ".join(res)

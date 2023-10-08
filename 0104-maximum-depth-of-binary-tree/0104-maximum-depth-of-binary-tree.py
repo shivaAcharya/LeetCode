@@ -7,13 +7,5 @@
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root: return 0
-        max_depth = 0
-        # BFS
-        Q = [root]
         
-        while Q:
-            max_depth += 1
-            Q = [child for node in Q for child in (node.left, node.right) if child]
-        
-        return max_depth
-                
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))

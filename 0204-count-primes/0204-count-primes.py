@@ -2,7 +2,7 @@ class Solution:
     def countPrimes(self, n: int) -> int:
         
         primes = 0
-        is_prime = [False, False] + [True] * (n - 1)
+        is_prime = [False, False] + [True] * (n - 2)
         
         for p in range(2, n):
             if is_prime[p]:

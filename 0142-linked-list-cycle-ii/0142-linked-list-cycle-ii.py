@@ -12,14 +12,15 @@ class Solution:
         while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
-            if slow == fast: break
+            
+            if slow is fast:
+                break
+        else:
+            return
         
-        if not fast or not fast.next: return
-        
-        while slow != head:
-            slow = slow.next
+        while head != slow:
             head = head.next
+            slow = slow.next
         
         return head
-        
-        
+    

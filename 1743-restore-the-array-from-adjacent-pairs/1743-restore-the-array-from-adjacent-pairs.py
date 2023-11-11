@@ -1,29 +1,17 @@
 class Solution:
     def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
-        """
-        Add first two elements to res.
-        Iterate over intervals and compare with last two elem of res:
-            If all four different add both elem.
-            If mutual found, add non-mutual from the first.
         
-        [2, 1, 4, 3]
-        3, 4, 3, 2
-        
-        -2, 4, 1
-        
-        """
-        
-        graph = defaultdict(list)
+        G = defaultdict(list)
         
         for u, v in adjacentPairs:
-            graph[u].append(v)
-            graph[v].append(u)
+            G[u].append(v)
+            G[v].append(u)
             
         root = None
         
-        for num in graph:
-            if len(graph[num]) == 1:
-                root = num
+        for node in G:
+            if len(G[node]) == 1:
+                root = node
                 break
         
         res = []
@@ -31,10 +19,10 @@ class Solution:
         def dfs(node, prev):
             res.append(node)
             
-            for nei in graph[node]:
+            for nei in G[node]:
                 if nei != prev:
                     dfs(nei, node)
         
         dfs(root, None)
         return res
-    
+        

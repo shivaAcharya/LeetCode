@@ -8,7 +8,6 @@ class Solution:
         
         """
         
-        set_nums = set(nums)
         res = None
         binary_digits = []
         
@@ -19,7 +18,7 @@ class Solution:
             
             if n == len(nums):
                 binary_str = "".join(binary_digits)
-                if binary_str not in set_nums:
+                if binary_str not in nums:
                     res = binary_str
                 return
             

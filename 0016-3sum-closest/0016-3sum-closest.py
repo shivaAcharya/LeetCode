@@ -4,7 +4,7 @@ class Solution:
         nums.sort()
         min_diff = float("inf")
         
-        for i in range(len(nums) - 2):
+        for i in range(len(nums)):
             
             l, r = i + 1, len(nums) - 1
             

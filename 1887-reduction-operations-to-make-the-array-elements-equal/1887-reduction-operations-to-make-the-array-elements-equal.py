@@ -5,10 +5,8 @@ class Solution:
         factor = 0
         ans = 0
         
-        for i, num in enumerate(nums):
-            if i == 0 or (factor == 0 and num == nums[i - 1]):
-                continue
-            if num != nums[i - 1]:
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
                 factor += 1
             
             ans += factor

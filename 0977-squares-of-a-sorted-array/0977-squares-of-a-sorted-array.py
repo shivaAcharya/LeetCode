@@ -1,16 +1,19 @@
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        N = len(nums)
-        res = [0] * N
-        left, right = 0, N - 1
         
-        for i in range(N - 1, -1, -1):
-            if abs(nums[left]) < abs(nums[right]):
-                square = nums[right]
-                right -= 1
+        l, r = 0, len(nums) - 1
+        
+        squares = [0] * len(nums)
+        write_idx = len(nums) - 1
+        
+        while l <= r:
+            if abs(nums[l]) < abs(nums[r]):
+                squares[write_idx] = nums[r] * nums[r]
+                r -= 1
             else:
-                square = nums[left]
-                left += 1
-                
-            res[i] = square * square
-        return res
+                squares[write_idx] = nums[l] * nums[l]
+                l += 1
+            write_idx -= 1
+        
+        return squares
+    

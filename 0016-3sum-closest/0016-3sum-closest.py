@@ -16,7 +16,7 @@ class Solution:
                     return target
                 
                 # Update min_diff when needed
-                if abs(cur_diff) < abs(min_diff) or (abs(cur_diff) == abs(min_diff) and cur_diff < min_diff):
+                if abs(cur_diff) < abs(min_diff) or (abs(cur_diff) == abs(min_diff) and cur_diff > min_diff):
                     min_diff = cur_diff
                 
                 if cur_diff > 0:

@@ -1,6 +1,6 @@
 class Solution:
     def countNicePairs(self, nums: List[int]) -> int:
-        hash_map = {}
+        hash_map = defaultdict(int)
         ans = 0
         MOD = 10 ** 9 + 7
         
@@ -15,9 +15,7 @@ class Solution:
             cur = num - rev(num)
             if cur in hash_map:
                 ans = (ans + hash_map[cur]) % MOD
-                hash_map[cur] += 1
-            else:
-                hash_map[cur] = 1
+            hash_map[cur] += 1
         
         return ans
     

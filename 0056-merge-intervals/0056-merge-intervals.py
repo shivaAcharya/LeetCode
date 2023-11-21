@@ -2,16 +2,14 @@ class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         
         intervals.sort()
-        merged_intervals = [[intervals[0][0], intervals[0][1]]]
+        merged_intervals = []
         
-        for u, v in intervals[1:]:
-            a, b = merged_intervals[-1][0], merged_intervals[-1][1]
-            
-            # When two intervals are disjoint
-            if u > b:
+        for u, v in intervals:
+            # When two intervals are disjoint | not merged_intervals
+            if not merged_intervals or u > merged_intervals[-1][1]:
                 merged_intervals.append([u, v])
             # When second interval overlaps partially
-            elif v > b:
+            elif v > merged_intervals[-1][1]:
                 merged_intervals[-1][1] = v
         
         return merged_intervals

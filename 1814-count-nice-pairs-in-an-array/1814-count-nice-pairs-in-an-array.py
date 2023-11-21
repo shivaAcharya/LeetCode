@@ -13,8 +13,7 @@ class Solution:
         
         for num in nums:
             cur = num - rev(num)
-            if cur in hash_map:
-                ans = (ans + hash_map[cur]) % MOD
+            ans = (ans + hash_map[cur]) % MOD
             hash_map[cur] += 1
         
         return ans

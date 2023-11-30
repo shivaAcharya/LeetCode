@@ -21,8 +21,8 @@ class Solution:
                 
                 if cur_sum > 0:
                     r -= 1
-                    while l < r and nums[r] == nums[r + 1]:
-                        r -= 1
+                    # while l < r and nums[r] == nums[r + 1]:
+                    #     r -= 1
                 else:
                     l += 1
                     while l < r and nums[l] == nums[l - 1]:

@@ -14,7 +14,7 @@ class Solution:
                 if cur_diff == 0:
                     return target
                 
-                if abs(cur_diff) < abs(min_diff) or (abs(cur_diff) == abs(min_diff) and cur_diff > min_diff):
+                if abs(cur_diff) < abs(min_diff) or (abs(cur_diff) == abs(min_diff) and cur_diff < min_diff):
                     min_diff = cur_diff
                 
                 if cur_diff > 0:

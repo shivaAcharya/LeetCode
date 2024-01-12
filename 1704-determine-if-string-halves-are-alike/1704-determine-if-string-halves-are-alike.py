@@ -1,20 +1,18 @@
 class Solution:
     def halvesAreAlike(self, s: str) -> bool:
-        
         VOWELS = "aeiouAEIOU"
+        L = len(s)
+        left_vowel = right_vowel = 0
         
-        l, r = 0, len(s) - 1
+        l, r = 0, L // 2
         
-        left_vowels = right_vowels = 0
-        
-        while l < r:
+        while r < L:
             if s[l] in VOWELS:
-                left_vowels += 1
-            
+                left_vowel += 1
             if s[r] in VOWELS:
-                right_vowels += 1
-            
+                right_vowel += 1
             l += 1
-            r -= 1
+            r += 1
         
-        return left_vowels == right_vowels
+        return left_vowel == right_vowel
+        

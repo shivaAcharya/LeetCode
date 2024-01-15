@@ -1,3 +1,4 @@
+from sortedcontainers import SortedList
 class Solution:
     def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
         
@@ -6,16 +7,14 @@ class Solution:
             indegrees[loser] += 1
             indegrees[winner] += 0
         
-        not_lost = []       
-        lost_one = []
+        not_lost = SortedList()    
+        lost_one = SortedList()
         
         for player, lost_times in indegrees.items():
             if lost_times == 1:
-                lost_one.append(player)
+                lost_one.add(player)
             if lost_times == 0:
-                not_lost.append(player)
-        
-        not_lost.sort()
-        lost_one.sort()
+                not_lost.add(player)
+
         return [not_lost, lost_one]
         

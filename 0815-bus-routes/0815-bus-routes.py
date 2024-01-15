@@ -6,37 +6,37 @@ class Solution:
         routes_buses = defaultdict(set) # route -> bus
         
         Q = deque()
-        targets = set()
+        target_buses = set()
         for bus, route in enumerate(routes):
             for rt in route:
                 if rt == source:
                     Q.append((bus, 1))
                 if rt == target:
-                    targets.add(bus)
+                    target_buses.add(bus)
                 routes_buses[rt].add(bus)
         
         # Build Graph
-        G = defaultdict(set)
+        G = defaultdict(set) # Undirected buses
         
         for bus, route in enumerate(routes):
             for rt in route:
-                rts = routes_buses[rt]
-                for r in rts:
-                    G[bus].add(r)
-                    G[r].add(bus)
+                buses = routes_buses[rt]
+                for b in buses:
+                    G[bus].add(b)
+                    G[b].add(bus)
                 
         
         seen = set()
         while Q:
-            node, bus = Q.popleft()
-            if node in targets:
-                return bus
+            bus, bus_count = Q.popleft()
+            if bus in target_buses:
+                return bus_count
             
-            seen.add(node)
+            seen.add(bus)
             
-            for nei in G[node]:
+            for nei in G[bus]:
                 if nei not in seen:
-                    Q.append((nei, bus + 1))
+                    Q.append((nei, bus_count + 1))
         
         return -1
                         

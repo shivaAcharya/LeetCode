@@ -2,21 +2,18 @@ class Solution:
     def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
         
         indegrees = defaultdict(int)
-        winners, losers = set(), set()
         for winner, loser in matches:
-            winners.add(winner)
             indegrees[loser] += 1
-            losers.add(loser)
+            indegrees[winner] += 0
         
-        not_lost = []
-        for winner in winners:
-            if winner not in losers:
-                not_lost.append(winner)
-        
+        not_lost = []       
         lost_one = []
-        for loser, lost_times in indegrees.items():
+        
+        for player, lost_times in indegrees.items():
             if lost_times == 1:
-                lost_one.append(loser)
+                lost_one.append(player)
+            if lost_times == 0:
+                not_lost.append(player)
         
         not_lost.sort()
         lost_one.sort()

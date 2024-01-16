@@ -5,8 +5,8 @@ class Solution:
         
         # if we have sufficient quotas to eliminate the obstacles in the worst case,
         # then the shortest distance is the Manhattan distance
-        if k >= ROWS + COLS - 2:
-            return ROWS + COLS - 2
+        # if k >= ROWS + COLS - 2:
+        #     return ROWS + COLS - 2
         
         visited = set()
         visited.add((0, 0, k)) # (r, c, remaining_obstacles)

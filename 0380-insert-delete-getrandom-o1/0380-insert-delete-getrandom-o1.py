@@ -1,3 +1,14 @@
+"""
+val_idx = {1 : 0, 2 : }
+arr = [2, 1] => []
+last_idx = 0
+size = 0
+
+Initialize val_idx dict, arr, and last_idx = -1
+Insert => 
+    if arr and last_idx is less than size, insert
+
+"""
 import random
 class RandomizedSet:
 
@@ -16,17 +27,16 @@ class RandomizedSet:
         if val not in self.randomized_set:
             return False
         
-        idx = self.randomized_set.pop(val)
         last_item = self.list.pop()
+        idx = self.randomized_set.pop(val)
         
-        if idx != len(self.list):
+        if last_item != val:
             self.list[idx] = last_item
             self.randomized_set[last_item] = idx
         
         return True
 
     def getRandom(self) -> int:
-        
         return random.choice(self.list)
 
 

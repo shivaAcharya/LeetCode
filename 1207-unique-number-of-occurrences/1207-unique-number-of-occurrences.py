@@ -3,4 +3,5 @@ class Solution:
         
         counter = Counter(arr)
         
-        return len(counter.values()) == len(set(counter.values()))
+        return len(list(counter.values())) == len(set(counter.values()))
+    

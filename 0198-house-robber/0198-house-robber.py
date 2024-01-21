@@ -30,9 +30,7 @@ class Solution:
             if i in memo:
                 return memo[i]
             
-            left = dfs(i + 1)
-            right = dfs(i + 2) + nums[i]
-            memo[i] =  max(left, right)
+            memo[i] =  max(dfs(i + 1), dfs(i + 2) + nums[i])
             return memo[i]
                     
         return dfs(0)

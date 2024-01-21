@@ -35,5 +35,5 @@ class Solution:
             memo[i] =  max(left, right)
             return memo[i]
                     
-        return max(dfs(0), dfs(1))
+        return dfs(0)
     

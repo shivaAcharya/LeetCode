@@ -16,11 +16,13 @@ class Solution:
             if (r, c) == (ROWS - 1, COLS - 1):
                 return steps
             
+
             for row, col in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
                 if 0 <= row < ROWS and 0 <= col < COLS:
                     new_k = k - grid[row][col]
                     if new_k >= 0 and (row, col, new_k) not in visited:
-                        visited.add((row, col, new_k))
                         Q.append((row, col, new_k, steps + 1))
+                        visited.add((row, col, new_k))
+
         return -1
                         

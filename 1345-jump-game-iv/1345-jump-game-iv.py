@@ -1,33 +1,36 @@
+"""
+arr = [100,-23,-23,404,100,23,23,23,3,404]
+        ^
+
+
+"""
+from collections import deque
 class Solution:
     def minJumps(self, arr: List[int]) -> int:
+        num_idx = defaultdict(set)
         
-        val_idx = defaultdict(set)
-        
-        for i, val in enumerate(arr):
-            val_idx[val].add(i)
+        for idx, num in enumerate(arr):
+            num_idx[num].add(idx)
             
-        Q = deque([(0, 0)]) # (idx, step)
-        
+        Q = deque([(0, 0)]) # (idx, steps)
         seen = set()
-        while Q:
-            i, step = Q.popleft()
-            
-            if i == len(arr) - 1:
-                return step
-            
-            seen.add(i)
-            
-            if i + 1 < len(arr) and i + 1 not in seen:
-                Q.append((i + 1, step + 1))
-            
-            if i - 1 >= 0 and i - 1 not in seen:
-                Q.append((i - 1, step + 1))
         
+        while Q:
+            idx, steps = Q.popleft()
+            if idx == len(arr) - 1:
+                return steps
             
-            for nei in val_idx[arr[i]]:
+            seen.add(idx)
+            
+            for nei in (idx + 1), (idx - 1):
+                if 0 <= nei < len(arr) and nei not in seen:
+                    Q.append((nei, steps + 1))
+            
+            for nei in num_idx[arr[idx]]:
                 if nei not in seen:
-                    Q.append((nei, step + 1))
+                    Q.append((nei, steps + 1))
             
-            # Clear the key in dictionary to prevent redundant search
-            del val_idx[arr[i]]
+            del num_idx[arr[idx]]
+        
+        return 0
                     

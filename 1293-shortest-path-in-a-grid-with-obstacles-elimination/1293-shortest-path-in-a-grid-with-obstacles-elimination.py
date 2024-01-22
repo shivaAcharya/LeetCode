@@ -23,4 +23,4 @@ class Solution:
                         visited.add((row, col, new_k))
                         Q.append((row, col, new_k, steps + 1))
         return -1
-    
+                        

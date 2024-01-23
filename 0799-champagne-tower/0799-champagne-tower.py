@@ -21,7 +21,6 @@ class Solution:
         for r in range(query_row + 1):
             for c in range(r + 1):
                 q = (arr[r][c] - 1) / 2
-                
                 if q > 0:
                     arr[r + 1][c] += q
                     arr[r + 1][c + 1] += q

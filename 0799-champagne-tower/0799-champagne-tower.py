@@ -1,25 +1,30 @@
+"""
+Simulation
+
+Initialize an array of arrays imitating the glass structure.
+Initialize top glass with poured
+Iterate through glasses.
+    For each glass, calculate the flow
+    q = x - 1
+    left_bottom = r + 1, c
+    right_bottom = r + 1, c + 1
+    left and right bottom glasses get half of q wine
+Return the amount of wine at query_row and query_glass
+
+"""
 class Solution:
     def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
-        """
-        Simulation
-        1. Flow-through calculation on each glass.
-        2. Initialize an array of arrays with proper number of glasses. Also, initialize topmost glass
-        3. Iterate over each row and col.
-        4.     left and right will have this flow q = (X - 1.0) / 2
-        5.     (r + 1, c) and (r + 1, c + 1)
         
-        """
-        
-        A = [[0] * r for r in range(1, query_row + 3)]
-        A[0][0] = poured
+        arr = [[0] * n for n in range(1, query_row + 3)]
+        arr[0][0] = poured
         
         for r in range(query_row + 1):
             for c in range(r + 1):
-                q = (A[r][c] - 1.0) / 2
+                q = (arr[r][c] - 1) / 2
                 
                 if q > 0:
-                    A[r + 1][c] += q
-                    A[r + 1][c + 1] += q
+                    arr[r + 1][c] += q
+                    arr[r + 1][c + 1] += q
         
-        return min(1, A[query_row][query_glass])
+        return min(1, arr[query_row][query_glass])
         

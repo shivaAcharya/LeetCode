@@ -1,36 +1,39 @@
 """
-arr = [100,-23,-23,404,100,23,23,23,3,404]
-        ^
-
+Initialize val_idx hashmap
+Intialize Queue with start idx and step being 0
+Initialize a visited set to keep track of visited indices.
+Use BFS
 
 """
-from collections import deque
 class Solution:
     def minJumps(self, arr: List[int]) -> int:
-        num_idx = defaultdict(set)
         
-        for idx, num in enumerate(arr):
-            num_idx[num].add(idx)
+        val_idx = defaultdict(set)
+        
+        for i, num in enumerate(arr):
+            val_idx[num].add(i)
             
-        Q = deque([(0, 0)]) # (idx, steps)
-        seen = set()
-        
+        Q = deque([(0, 0)])
+        visited = set()
+        visited.add(0)
         while Q:
             idx, steps = Q.popleft()
+            # print(idx, steps)
             if idx == len(arr) - 1:
                 return steps
             
-            seen.add(idx)
+            visited.add(idx)
             
-            for nei in (idx + 1), (idx - 1):
-                if 0 <= nei < len(arr) and nei not in seen:
-                    Q.append((nei, steps + 1))
+            for i in (idx + 1), (idx - 1):
+                if 0 <= i < len(arr) and i not in visited:
+                    Q.append((i, steps + 1))
+                    visited.add(i)
+                
+            for i in val_idx[arr[idx]]:
+                if i not in visited:
+                    Q.append((i, steps + 1))
+                    visited.add(i)
             
-            for nei in num_idx[arr[idx]]:
-                if nei not in seen:
-                    Q.append((nei, steps + 1))
-            
-            del num_idx[arr[idx]]
-        
-        return 0
+            del val_idx[arr[idx]]
                     
+        

@@ -1,23 +1,55 @@
+"""
+s = "2[abc]3[cd]ef"
+abcabccdcdef
+
+s = "3[a2[c]]" = 3[acc] = accaccacc
+
+stack = [3, acc]
+
+stack = [abcabc, cdcdcd, ef]
+
+Initialize stack, num, chars
+Iterate over s
+    If c is digit: add it to num
+    if c is alpah: add it to chars
+    If c = [: add num to add, set num to 0
+    If c == ]: pop num, multiply it to chars and add it to the stack, set chars to ""
+    
+Return "".join(stack)
+
+s = "3[a]2[bc]"
+
+num = 
+chars = a
+stack = [aaa, 
+
+"""
+
 class Solution:
     def decodeString(self, s: str) -> str:
-        
-        stack = []; cur_num = 0; cur_str = ""
+        stack, num, chars = [], 0, ""
         
         for c in s:
-            if c == '[':
-                stack.append(cur_num)
-                stack.append(cur_str)
-                cur_num = 0; cur_str = ""
-            elif c == ']':
-                prev_str, num = stack.pop(), stack.pop()
-                cur_str = prev_str + num * cur_str
-            elif c.isdigit():
-                cur_num = cur_num * 10 + int(c)
+            if c.isdigit():
+                num = num * 10 + int(c)
+            elif c.isalpha():
+                chars += c
+            elif c == '[':
+                stack.append(chars)
+                stack.append(num)
+                chars = ""
+                num = 0
             else:
-                cur_str += c
+                n = stack.pop()
+                prev_chars = stack.pop()
+                chars = prev_chars + n * chars
         
-        return cur_str
-            
-            
-            
-        
+        return chars
+"""
+s = "3[a2[c]]"
+
+stack = [
+num = 0
+chars = ""
+
+"""

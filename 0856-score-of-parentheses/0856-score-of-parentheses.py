@@ -1,9 +1,14 @@
 """
-Initiate stack with score 0
-Iterate over s
-    For (, add 0 in stack
-    For ), pop the stack and add max(stack.pop() * 2, 1) to stack.peek
-Return stack.pop()
+s = ()(())
+        ^    
+score = 1 + 2 = 3
+
+score = 1
+stack = [3]
+
+If open => add 0 to the stack
+If close => pop, muliply by 2, add max(1, 2 * popped_elem) to stack[-1]
+Return the last stack element
 
 """
 class Solution:
@@ -15,7 +20,7 @@ class Solution:
                 stack.append(0)
             else:
                 v = stack.pop()
-                stack[-1] += max(v * 2, 1)
-            # print(stack)
-        return stack.pop()
-    
+                stack[-1] += max(1, 2 * v)
+        
+        return stack[-1]
+        

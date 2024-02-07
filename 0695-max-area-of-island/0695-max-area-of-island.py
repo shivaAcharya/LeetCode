@@ -3,8 +3,8 @@ class Solution:
         ROWS, COLS = len(grid), len(grid[0])
         
         def dfs(r, c, area):
-            if (r, c) in visited:
-                return 0
+            # if (r, c) in visited:
+            #     return 0
             
             visited.add((r, c))
             area = 1

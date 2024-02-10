@@ -35,11 +35,10 @@ res = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
 """
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        res = 0
+        res = len(s)
         
         # Handle odd
-        for i in range(len(s)):
-            res += 1
+        for i in range(res):
             l, r = i - 1, i + 1
             
             while l >= 0 and r < len(s) and s[l] == s[r]:
@@ -48,7 +47,7 @@ class Solution:
                 r += 1
         
         # Handle even
-        for i in range(len(s)):
+        for i in range(res):
             l, r = i, i + 1
             
             while l >= 0 and r < len(s) and s[l] == s[r]:

@@ -5,37 +5,42 @@ class Solution:
         2. Find the index of target with BS
         '''
         
+        # Find pivot idx
         l, r = 0, len(nums) - 1
-        
+
+        # [1, 2]
+        #  ^
         while l < r:
             mid = (l + r) // 2
-            
-            if nums[mid] > nums[r]:
+
+            if nums[mid] > nums[-1]:
                 l = mid + 1
             else:
                 r = mid
-        
-        # Find the right sub-array
+
+        # pivot idx = l
+        pivot_idx = l
         if nums[l] == target:
             return l
-        
-        left, right = 0, len(nums) - 1
-        
-        if nums[right] >= target:
-            left = l
+
+        l, r = 0, len(nums) - 1
+        if target > nums[-1]:
+            r = pivot_idx - 1
         else:
-            right = l
-            
-        while left < right:
-            mid = (left + right) // 2
-            
+            l = pivot_idx + 1
+
+        # [1, 2 2]
+        # ^
+        while l <= r:
+            mid = (l + r) // 2
+
+            if nums[mid] == target:
+                return mid
+
             if nums[mid] < target:
-                left = mid + 1
+                l = mid + 1
             else:
-                right = mid
-                
-            if nums[left] == target:
-                return left
-                
+                r = mid - 1
+
         return -1
     

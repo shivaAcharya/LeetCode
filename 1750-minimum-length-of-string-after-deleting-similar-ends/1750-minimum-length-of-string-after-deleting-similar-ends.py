@@ -9,10 +9,10 @@ class Solution:
         
         l, r = 0, len(s) - 1
         
-        while l < r:
+        while l < r and s[l] == s[r]:
             
-            if s[l] != s[r]:
-                break
+            # if s[l] != s[r]:
+            #     break
             
             # Move left pointer
             l += 1
@@ -24,6 +24,5 @@ class Solution:
             while l < r and s[r] == s[r + 1]:
                 r -= 1
             
-        
         return r - l + 1
         

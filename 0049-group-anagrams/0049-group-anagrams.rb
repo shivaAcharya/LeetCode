@@ -8,10 +8,6 @@ def group_anagrams(strs)
         groups[sorted_str].push(str)
     end
     
-    res = []
-    groups.values.each do |group|
-        res.push(group)
-    end
-    res
+    groups.values
     
 end

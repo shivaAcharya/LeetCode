@@ -7,11 +7,5 @@ class Solution:
         for r in range(1, N - 1):
             for c in range(1, N - 1):
                 res[r - 1][c - 1] = max([grid[row][col] for row in (r - 1, r, r + 1) for col in (c - 1, c, c + 1)])
-                # num = 1
-                # for i in (r - 1, r, r + 1):
-                #     for j in (c - 1, c, c + 1):
-                #         num = max(num, grid[i][j])
-                # # print(res, r, c)
-                # res[r - 1][c - 1] = num
         
         return res

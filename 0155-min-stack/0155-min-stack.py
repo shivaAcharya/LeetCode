@@ -1,32 +1,33 @@
+"""
+stack1 = [-2, 0]
+stack2 = [-2,]
+
+
+"""
+
 class MinStack:
 
     def __init__(self):
-        self.stack = []
-        self.aux_stack = []
+        self.stack, self.min_stack = [], []
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        if not self.aux_stack:
-            self.aux_stack.append([val, 1])
-        elif self.aux_stack[-1][0] >= val:
-            if self.aux_stack[-1][0] == val:
-                self.aux_stack[-1][1] += 1
-            else:
-                self.aux_stack.append([val, 1])
+        if not self.min_stack or val <= self.min_stack[-1]:
+            self.min_stack.append(val)
 
     def pop(self) -> None:
-        ret_val = self.stack.pop()
-        if ret_val == self.aux_stack[-1][0]:
-            self.aux_stack[-1][1] -= 1
-            if self.aux_stack[-1][1] == 0:
-                self.aux_stack.pop()
-        return ret_val
+        popped_element = self.stack.pop()
+        if self.min_stack[-1] == popped_element:
+            self.min_stack.pop()
+            
+        return popped_element
 
     def top(self) -> int:
         return self.stack[-1]
+        
 
     def getMin(self) -> int:
-        return self.aux_stack[-1][0]
+        return self.min_stack[-1]
 
 
 # Your MinStack object will be instantiated and called as such:

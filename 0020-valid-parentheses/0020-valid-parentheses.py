@@ -1,18 +1,12 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        
         stack = []
-        parantheses = {
-            '(' : ')',
-            '[' : ']',
-            '{' : '}',
-        }
-        
+        paras = {'(' : ')', '{' : '}', '[' : ']'}
+
         for para in s:
-            if para in parantheses:
-                stack.append(parantheses[para])
-            elif not stack or stack.pop() != para:
+            if para in paras:
+                stack.append(paras[para])
+            elif not stack or para != stack.pop():
                 return False
-        
+
         return not stack
-        

@@ -7,9 +7,5 @@ class Solution:
             sorted_word = tuple(sorted(word))
             mapping[sorted_word].append(word)
             
-        res = []
-        for _, values in mapping.items():
-            res.append(values)
-            
-        return res
+        return mapping.values()
         

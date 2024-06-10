@@ -1,15 +1,15 @@
-from collections import defaultdict
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
-        groups = defaultdict(list)
+        mapping = defaultdict(list)
         
         for word in strs:
-            groups[tuple(sorted(word))].append(word)
+            sorted_word = tuple(sorted(word))
+            mapping[sorted_word].append(word)
             
         res = []
-        for lst in groups.values():
-            res.append(lst)
-        
+        for _, values in mapping.items():
+            res.append(values)
+            
         return res
         

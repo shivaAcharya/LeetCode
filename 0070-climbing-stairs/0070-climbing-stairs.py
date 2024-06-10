@@ -17,14 +17,21 @@ class Solution:
 #             return memo[i]         
 #         return dp(n)
         
-        if n <= 1:
-            return 1
+#         if n <= 1:
+#             return 1
         
-        dp = [0] * (n + 1)
-        dp[0], dp[1] = 1, 1
+#         dp = [0] * (n + 1)
+#         dp[0], dp[1] = 1, 1
+        
+#         for i in range(2, n + 1):
+#             dp[i] = dp[i - 1] + dp[i - 2]
+        
+#         return dp[-1]
+
+        prev = cur = 1
         
         for i in range(2, n + 1):
-            dp[i] = dp[i - 1] + dp[i - 2]
+            prev, cur = cur, prev + cur
         
-        return dp[-1]
+        return cur
     

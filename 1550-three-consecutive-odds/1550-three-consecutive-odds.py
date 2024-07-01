@@ -1,21 +1,15 @@
 class Solution:
     def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+        consecutive_odds = 0
         
-        window = []
-        left = 0
-        
-        for right, num in enumerate(arr):
-            
+        for num in arr:
             if num % 2:
-                window.append(True)
+                consecutive_odds += 1
             else:
-                window.append(False)
-                
-            if len(window) > 3:
-                window.pop(0)
+                consecutive_odds = 0
             
-            if len(window) == 3 and all(window):
+            if consecutive_odds == 3:
                 return True
-
-        return False
         
+        return False
+    

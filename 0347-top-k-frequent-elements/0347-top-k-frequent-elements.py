@@ -11,12 +11,7 @@ class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         
         counter = Counter(nums)
-        heap = []
+        n_freq = heapq.nlargest(k, counter.values())
         
-        for num, freq in counter.items():
-            heapq.heappush(heap, (freq, num))
-            
-        n_freq = heapq.nlargest(k, heap)
-        
-        return [v for _, v in n_freq]
+        return [u for u, v in counter.items() if v in n_freq]
         

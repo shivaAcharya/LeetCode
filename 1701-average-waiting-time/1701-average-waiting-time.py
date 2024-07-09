@@ -30,8 +30,7 @@ wait_time = 3
 class Solution:
     def averageWaitingTime(self, customers: List[List[int]]) -> float:
         
-        cur_time = customers[0][0]
-        wait_time = 0
+        cur_time = wait_time = 0
         
         for arrival, time in customers:
             cur_time = max(cur_time, arrival)

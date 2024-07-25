@@ -1,0 +1,25 @@
+/*
+
+diffIndex = {
+    2 : 0,
+    
+}
+
+*/
+public class Solution {
+    public int[] TwoSum(int[] nums, int target) {
+        
+        Dictionary<int, int> numIndex = new Dictionary<int, int>(); 
+        
+        for (int i = 0; i < nums.Length; i++){
+            int diffInt = target - nums[i];
+            if (numIndex.ContainsKey(diffInt)){
+                return [i, numIndex[target - nums[i]]];
+            }
+            if (!numIndex.ContainsKey(nums[i])){
+                numIndex.Add(nums[i], i);                
+            }
+        }
+        return [-1, -1]; 
+    }
+}

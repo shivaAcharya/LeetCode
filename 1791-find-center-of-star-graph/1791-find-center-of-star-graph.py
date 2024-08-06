@@ -1,13 +1,14 @@
 class Solution:
     def findCenter(self, edges: List[List[int]]) -> int:
-        
-        degree = defaultdict(int)
-        
+        edge_count = defaultdict(int)
+
         for u, v in edges:
-            degree[u] += 1
-            degree[v] += 1
-                            
-        for node, freq in degree.items():
-            if freq == len(edges):
-                return node
+            edge_count[u] += 1
+            edge_count[v] += 1
         
+        max_edge = max(edge_count.values())
+        
+        for node, edge in edge_count.items():
+            if edge == max_edge:
+                return node
+            

@@ -20,18 +20,32 @@ if the array contains two 0s => return an array with all 0s
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        L = len(nums)
-        res = [1] * L
+#         L = len(nums)
+#         res = [1] * L
         
-        # Left traversal
-        for i in range(1, L):
-            res[i] = res[i - 1] * nums[i - 1]
+#         # Left traversal
+#         for i in range(1, L):
+#             res[i] = res[i - 1] * nums[i - 1]
         
-        # Right traversal
-        prod = 1
-        for i in range(L - 2, -1, -1):
-            prod *= nums[i + 1]
-            res[i] *= prod
+#         # Right traversal
+#         prod = 1
+#         for i in range(L - 2, -1, -1):
+#             prod *= nums[i + 1]
+#             res[i] *= prod
+        
+#         return res
+        
+        res = [1] * len(nums)
+        prefix = 1
+        
+        for i in range(len(nums)):
+            res[i] = prefix
+            prefix *= nums[i]
+        
+        postfix = 1
+        for i in range(len(nums) - 1, -1, -1):
+            res[i] *= postfix
+            postfix *= nums[i]
         
         return res
 

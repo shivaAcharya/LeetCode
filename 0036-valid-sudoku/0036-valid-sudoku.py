@@ -9,40 +9,24 @@ Approach
 3. Traverse each 3 x 3 sub-boxes and check if valid.
 
 """
-
+from collections import defaultdict
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        grids = defaultdict(set)
         
-        # Check rows
         for r in range(9):
-            nums = []
             for c in range(9):
                 element = board[r][c]
-                if element.isnumeric() and element in nums:
-                    return False
-                nums.append(element)
-        
-        # Check cols
-        for r in range(9):
-            nums = []
-            for c in range(9):
-                element = board[c][r]
-                if element.isnumeric() and element in nums:
-                    return False
-                nums.append(element)
-        
-        # Check 3 x 3
-        for row in range(0, 9, 3):
-            for col in range(0, 9, 3):
-                nums = []
-                for i in range(row, row + 3):
-                    for j in range(col, col + 3):
-                        element = board[i][j]
-                        if element.isnumeric() and element in nums:
-                            return False
-                        nums.append(element)
-        
+                if element != '.':
+                    if element in rows[r] or element in cols[c] or element in grids[(r // 3, c // 3)]:
+                        return False
+                    rows[r].add(element)
+                    cols[c].add(element)
+                    grids[(r // 3, c // 3)].add(element)
         return True
+        
 """
 RE:
 

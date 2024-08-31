@@ -1,34 +1,50 @@
+"""
+Clarifying questions:
+1. Board will always be 9 x 9
+2. Contains str version of num
+
+Approach
+1. Traverse each row and check if valid.
+2. Traverse each column and check if valid.
+3. Traverse each 3 x 3 sub-boxes and check if valid.
+
+"""
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        ROWS = COLS = 9
-
-        # Check each row
-        for r in range(ROWS):
-            rows = set()
-            for c in range(COLS):
-                cur = board[r][c]
-                if cur != "." and cur in rows:
+        
+        # Check rows
+        for r in range(9):
+            nums = []
+            for c in range(9):
+                element = board[r][c]
+                if element.isnumeric() and element in nums:
                     return False
-                rows.add(board[r][c])
-
-        # Check each column
-        for c in range(COLS):
-            cols = set()
-            for r in range(ROWS):
-                cur = board[r][c]
-                if cur != "." and cur in cols:
+                nums.append(element)
+        
+        # Check cols
+        for r in range(9):
+            nums = []
+            for c in range(9):
+                element = board[c][r]
+                if element.isnumeric() and element in nums:
                     return False
-                cols.add(board[r][c])
-
-        # Check grid
-        for r in range(0, ROWS, 3):
-            for c in range(0, COLS, 3):
-                grid = set()
-                for i in range(3):
-                    for j in range(3):
-                        cur = board[r + i][c + j]
-                        if cur != "." and cur in grid:
+                nums.append(element)
+        
+        # Check 3 x 3
+        for row in range(0, 9, 3):
+            for col in range(0, 9, 3):
+                nums = []
+                for i in range(row, row + 3):
+                    for j in range(col, col + 3):
+                        element = board[i][j]
+                        if element.isnumeric() and element in nums:
                             return False
-                        grid.add(board[r + i][c + j])
-
+                        nums.append(element)
+        
         return True
+"""
+RE:
+
+
+"""

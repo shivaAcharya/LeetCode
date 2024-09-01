@@ -1,26 +1,40 @@
+"""
+[-4, -1, -1, 0, 1, 2]
+          i  
+             j    
+                   k 
+
+"""
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         
         nums.sort()
         res = []
         
-        for i, num in enumerate(nums):
-            
-            if i > 0 and num == nums[i - 1]:
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-                
-            l, r = i + 1, len(nums) - 1
-            while l < r:
-                cur_sum = num + nums[l] + nums[r]
-                
-                if cur_sum == 0:
-                    res.append([num, nums[l], nums[r]])
-                    
-                if cur_sum > 0:
-                    r -= 1
+            
+            # Two Pointer
+            j, k = i + 1, len(nums) - 1
+            
+            while j < k:
+                if nums[i] + nums[j] + nums[k] < 0:     
+                    j += 1
+                    while j < k and nums[j] == nums[j - 1]:
+                        j += 1
+                elif nums[i] + nums[j] + nums[k] > 0:
+                    k -= 1
+                    while j < k and nums[k] == nums[k + 1]:
+                        k -= 1
                 else:
-                    l += 1
-                    while l < r and nums[l] == nums[l - 1]:
-                        l += 1
+                    res.append([nums[i], nums[j], nums[k]])
+                    j += 1
+                    k -= 1
+                    while j < k and nums[j] == nums[j - 1]:
+                        j += 1
+                    while j < k and nums[k] == nums[k + 1]:
+                        k -= 1
         
         return res
+        

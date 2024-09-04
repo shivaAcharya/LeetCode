@@ -17,7 +17,7 @@ class Solution:
         for r, c in enumerate(s):
             window[c] += 1
             
-            while (r - l + 1) - max(window.values()) > k:
+            if (r - l + 1) - max(window.values()) > k:
                 window[s[l]] -= 1
                 l += 1
             

@@ -1,20 +1,19 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        # Fixed size sliding window
+        s2_count = defaultdict(int)        
+        s1_count = Counter(s1)
         
-        need = Counter(s1)
-        have = {}
-        left = 0
-        for right, c in enumerate(s2):
-            have[c] = have.get(c, 0) + 1
-            if right < len(s1) - 1:
-                continue
-            #print(need, have)
-            if need == have:
-                return True
-            have[s2[left]] -= 1
-            if have[s2[left]] == 0:
-                del have[s2[left]]
-            left += 1
+        l = 0
+        for r, c in enumerate(s2):
+            s2_count[c] += 1
+            
+            if s1_count == s2_count: return True
+            if r < len(s1) - 1: continue
+            
+            s2_count[s2[l]] -= 1
+            if s2_count[s2[l]] == 0:
+                del s2_count[s2[l]]
+            l += 1
         
         return False
+        

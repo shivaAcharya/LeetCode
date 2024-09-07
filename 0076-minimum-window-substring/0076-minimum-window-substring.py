@@ -1,52 +1,52 @@
 """
-If len(t) > len(s): return ""
-target = {
-    A : 1
-    B : 1
-    C : 1
-}
-min_subtr = ""
-s = "A D O B E C O D E B A N C", t = "ABC"
-     l     r   
-    cur_wind = {
-        A : 1
-        D : 1
-        O : 1
-    }
+Handle edge case of returning "" when len(t) > len(s).
+Initialize count_t and window hashmaps. Also res_len = inf, res = [-1, -1], need = len(t) and have = 0
+Populate count_t with chars from t.
+# Sliding window technique
+for r, c in enumerate(s):
+    Add c to window if c in count_t
+    check if window[c] == count_t, increment have
+    while have == need:
+        # update res
+        # move left pointer
+
+return s[l : r + 1] if res_len != inf
 
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-
-        if len(t) > len(s): return ""
         
-        target = Counter(t)
-        cur_wind = Counter()
-        res, need, res_len = (-1, -1), len(t), float("inf")
-    
-        left = have = 0
-        for right, char in enumerate(s):
-            cur_wind[char] += 1
-            
-            if char in target and cur_wind[char] <= target[char]:
-                have += 1
-            
-            # Compare
-            while need == have:
-                if right - left + 1 < res_len:
-                    res_len = right - left + 1
-                    res = (left, right)
-                    
-                # Remove left
-                cur_wind[s[left]] -= 1
+        if t == "": return ""
+        
+        count_t = Counter(t)
+        window = {}
+        
+        res, res_len = [-1, -1], float("inf")
+        have, need = 0, len(count_t)
+        l = 0
+        # print(count_t)
+        for r, c in enumerate(s):
+            if c in count_t:
+                window[c] = 1 + window.get(c, 0)
 
-                if s[left] in target and cur_wind[s[left]] < target[s[left]]:
-                    have -= 1
+                if c in count_t and window[c] == count_t[c]:
+                    have += 1
 
-                left += 1
+                while have == need:
+                    # Update res
+                    if (r - l + 1) < res_len:
+                        res_len = r - l + 1
+                        res = [l, r]
 
-        if res_len == float("inf"):
-            return ""
+                    # Update l
+                    if s[l] in count_t:
+                        window[s[l]] -= 1
+                        if window[s[l]] < count_t[s[l]]:
+                            have -= 1
+                    l += 1
+
+        # print(res)
         l, r = res
-        return s[l : r + 1]
+        return s[l : r + 1] if res_len != float("inf") else ""          
+        
         

@@ -1,26 +1,43 @@
+"""
+tokens = ['2', '1', '+', '3', '*']
+
+res = 9
+
+nums = [3]
+ops = [+]
+
+["4","13","5","/","+"]
+
+4, 2
+
+
+"""
+
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        operands = []
-        operators = "+-*/"
         
-        for token in tokens:
-            if token in operators:
-                operand1 = operands.pop()
-                operand2 = operands.pop()
-                
-                if token == '+':
-                    operands.append(operand2 + operand1)
-                elif token == '-':
-                    operands.append(operand2 - operand1)
-                elif token == '*':
-                    operands.append(operand2 * operand1)
-                else:
-                    result = abs(operand2) // abs(operand1)
-                    operands.append(result)
-                    if operand2 * operand1 < 0:
-                        operands[-1] *= -1
+        stack = []
+        
+        for tkn in tokens:
+            # print(stack)
+            if tkn not in '+-*/':
+                stack.append(int(tkn))
             else:
-                operands.append(int(token))
-        
-        return operands.pop()
-        
+                num1 = stack.pop()
+                num2 = stack.pop()
+                if tkn == '+':
+                    stack.append(num2 + num1)
+                elif tkn == '-':
+                    stack.append(num2 - num1)
+                elif tkn == '*':
+                    stack.append(num2 * num1)
+                else:
+                    stack.append(int(num2 / num1))
+        return stack.pop()
+
+"""
+["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+
+stack = [0]
+
+"""

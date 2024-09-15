@@ -1,46 +1,47 @@
+"""
+Find pivot index
+Figure out what side of pivot index is the target located
+Find the target element
+
+               l
+               m
+                    r
+nums = [4,5,6,7,0,1,2], target = 0
+
+
+"""
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        '''
-        1. Find the pivot point using BS
-        2. Find the index of target with BS
-        '''
-        
-        # Find pivot idx
+        # Find Pivot index
         l, r = 0, len(nums) - 1
-
-        # [1, 2]
-        #  ^
+        
         while l < r:
             mid = (l + r) // 2
-
-            if nums[mid] > nums[-1]:
+            if nums[mid] > nums[r]:
                 l = mid + 1
             else:
                 r = mid
-
-        # pivot idx = l
-        pivot_idx = l
-        if nums[l] == target:
-            return l
-
+        
+        # print(l)
+        # Check Pivot
+        idx = l
         l, r = 0, len(nums) - 1
-        if target > nums[-1]:
-            r = pivot_idx - 1
+        if nums[r] >= target:
+            l = idx
         else:
-            l = pivot_idx + 1
-
-        # [1, 2 2]
-        # ^
-        while l <= r:
+            r = idx
+        
+        # print(l, r)
+        while l < r:
             mid = (l + r) // 2
-
-            if nums[mid] == target:
-                return mid
-
             if nums[mid] < target:
                 l = mid + 1
             else:
-                r = mid - 1
+                r = mid
+        
+        return l if nums[l] == target else -1
+"""
+[1, 3]
 
-        return -1
-    
+
+"""    

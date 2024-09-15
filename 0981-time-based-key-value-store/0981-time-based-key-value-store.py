@@ -8,10 +8,10 @@ class TimeMap:
 
     def get(self, key: str, timestamp: int) -> str:
         values = self.time_map[key]
+        if not values or timestamp < values[0][0]:
+            return ""
         # Binary search        
         l, r = 0, len(values) - 1
-        if not values or timestamp < values[l][0]:
-            return ""
         
         while l < r:
             mid = (l + r) // 2

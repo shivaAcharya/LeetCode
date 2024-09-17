@@ -1,6 +1,6 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        roman_to_int = {
+        rom_to_int = {
             'I' : 1,
             'V' : 5,
             'X' : 10,
@@ -9,13 +9,20 @@ class Solution:
             'D' : 500,
             'M' : 1000,
         }
-        
-        running_sum = 0
-        
+
+        res = 0
+
         for i, rom in enumerate(s):
-            if i < len(s) - 1 and roman_to_int[rom] < roman_to_int[s[i + 1]]:
-                running_sum -= roman_to_int[rom]
+            if i != len(s) - 1:
+                if rom == 'I' and (s[i + 1] == 'V' or s[i + 1] == 'X'):
+                    res -= rom_to_int[rom]
+                elif rom == 'X' and (s[i + 1] == 'L' or s[i + 1] == 'C'):
+                    res -= rom_to_int[rom]
+                elif rom == 'C' and (s[i + 1] == 'D' or s[i + 1] == 'M'):
+                    res -= rom_to_int[rom]
+                else:
+                    res += rom_to_int[rom]
             else:
-                running_sum += roman_to_int[rom]
-        
-        return running_sum
+                res += rom_to_int[rom]
+        return res
+    

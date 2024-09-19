@@ -9,11 +9,11 @@ class Solution:
                     Q.append((r, c))
                 elif grid[r][c] == 1:
                     fresh_oranges += 1
-        if not fresh_oranges:
-            return 0
+        # if not fresh_oranges:
+        #     return 0
         
-        minutes = -1
-        while Q:
+        minutes = 0
+        while Q and fresh_oranges > 0:
             # print(Q, fresh_oranges, minutes)
             for _ in range(len(Q)):
                 r, c = Q.popleft()

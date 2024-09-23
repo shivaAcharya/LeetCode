@@ -6,20 +6,20 @@
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         dummy = prev = ListNode()
-        dummy.next = head
-        cur = head
+        dummy.next = cur = head
 
         while cur and cur.next:
-            # Save next ptr
+            # Save next nodes
             nxt = cur.next
             cur.next = nxt.next
 
-            # Swap nodes
+            # Move pointers
             prev.next = nxt
             nxt.next = cur
 
-            # Update ptrs
+            # Update pointers
             prev = cur
             cur = cur.next
 
         return dummy.next
+    

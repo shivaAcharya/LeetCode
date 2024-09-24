@@ -6,21 +6,20 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         
-        dummy = cur = ListNode()
+        temp = cur = ListNode()
         
         while list1 or list2:
+            l1_val = list1.val if list1 else float("inf")
+            l2_val = list2.val if list2 else float("inf")
             
-            l1 = list1.val if list1 else float("inf")
-            l2 = list2.val if list2 else float("inf")
-            
-            if l1 < l2:
-                cur.next = ListNode(l1)
+            if l1_val < l2_val:
+                cur.next = ListNode(l1_val)
                 list1 = list1.next
             else:
-                cur.next = ListNode(l2)
+                cur.next = ListNode(l2_val)
                 list2 = list2.next
                 
-            cur = cur.next    
+            cur = cur.next
         
-        return dummy.next
+        return temp.next
         

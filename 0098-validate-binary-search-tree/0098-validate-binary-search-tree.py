@@ -7,13 +7,13 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        def is_BST(node, lo, hi):
+        def preorder(node, min_val, max_val):
             if not node: return True
-                
-            if not lo < node.val < hi: return False
-
-            return is_BST(node.left, lo, node.val) and is_BST(node.right, node.val, hi)
             
+            if not min_val < node.val < max_val:
+                return False
+                
+            return preorder(node.left, min_val, node.val) and preorder(node.right, node.val, max_val)
         
-        
-        return is_BST(root, float("-inf"), float("inf"))
+        return preorder(root, float("-inf"), float("inf"))
+    

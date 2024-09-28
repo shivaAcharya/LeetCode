@@ -4,20 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from collections import deque
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         
         def is_same_tree(p, q):
-            if not p and not q: return True
-            if not p or not q: return False
+            if not p and not q: 
+                return True
+            
+            if not p or not q:
+                return False
+            
             return p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
         
-        def dfs(node):
-            if not node: return False
+        
+        Q = deque([root])
+        while Q:
+            node = Q.popleft()
             
-            if node.val == subRoot.val and is_same_tree(node, subRoot): return True
+            if node.val == subRoot.val and is_same_tree(node, subRoot):
+                return True
             
-            return dfs(node.left) or dfs(node.right)
-    
-        return dfs(root)
+            for child in node.left, node.right:
+                if child:
+                    Q.append(child)
+        
+        return False
     

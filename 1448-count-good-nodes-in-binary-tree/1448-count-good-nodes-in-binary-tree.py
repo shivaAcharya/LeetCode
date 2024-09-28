@@ -9,15 +9,14 @@ class Solution:
         
         self.good_nodes = 0
         
-        def dfs(node, max_val):
-            # Base case
+        def preorder(node, max_val):
             if node:
                 if node.val >= max_val:
-                    self.good_nodes += 1
                     max_val = node.val
-                dfs(node.left, max_val)
-                dfs(node.right, max_val)        
+                    self.good_nodes += 1
+                preorder(node.left, max_val)
+                preorder(node.right, max_val)
         
-        
-        dfs(root, float("-inf"))
+        preorder(root, root.val)
         return self.good_nodes
+        

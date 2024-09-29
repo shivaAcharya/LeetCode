@@ -7,23 +7,19 @@
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         
-        self.preorder_idx = 0
+        preorder_idx = 0
+        inorder_idx = {k : v for v, k in enumerate(inorder) }
         
         def helper(left, right):
-            if left > right:
-                return 
+            nonlocal preorder_idx
             
-            root_val = preorder[self.preorder_idx]
-            self.preorder_idx += 1
-            root = TreeNode(root_val)
-            
-            idx = val_idx[root_val]
-            
-            # Construct left and right subtrees
-            root.left = helper(left, idx - 1)
-            root.right = helper(idx + 1, right)
-            return root
+            if left <= right:
+                root_val = preorder[preorder_idx]
+                preorder_idx += 1
+                root = TreeNode(root_val)
+                root.left = helper(left, inorder_idx[root_val] - 1)
+                root.right = helper(inorder_idx[root_val] + 1, right)
+                return root        
         
-        
-        val_idx = {v:i for i, v in enumerate(inorder)}
-        return helper(0, len(inorder) - 1)
+        return helper(0, len(preorder) - 1)
+    

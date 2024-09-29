@@ -1,19 +1,15 @@
-"""
-[1, 1, 2, -7, -8]
-
-
-"""
-
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
-        stones = [-x for x in stones]
-        heapq.heapify(stones)
         
-        while len(stones) > 1:
-            x = heapq.heappop(stones)
-            y = heapq.heappop(stones)
+        max_heap = [-stone for stone in stones]
+        heapq.heapify(max_heap)
+        
+        while len(max_heap) > 1:
+            y = abs(heapq.heappop(max_heap))
+            x = abs(heapq.heappop(max_heap))
             
             if x != y:
-                heapq.heappush(stones, x-y)
+                heapq.heappush(max_heap, x - y)
         
-        return -stones[0] if len(stones) > 0 else 0
+        return -max_heap[0] if max_heap else 0
+            

@@ -13,7 +13,8 @@ class Solution:
                     
         minutes = 0
         
-        while Q:
+        while Q and fresh_oranges:
+            minutes += 1
             for _ in range(len(Q)):
                 r, c = Q.popleft()
                 for nr, nc in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
@@ -21,8 +22,6 @@ class Solution:
                         grid[nr][nc] = 2
                         fresh_oranges -= 1
                         Q.append((nr, nc))
-            if Q:
-                minutes += 1
         
         return minutes if not fresh_oranges else -1
         
